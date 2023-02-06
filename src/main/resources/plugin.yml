@@ -1,0 +1,6 @@
+name: CTF
+version: '${project.version}'
+main: com.prind.ctf.CTF
+api-version: 1.16
+authors: [ GodOfPro, Bind ]
+description: A CTF Plugin
