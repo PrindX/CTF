@@ -26,6 +26,14 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
+
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>cloud.commandframework</groupId>
+                            <artifactId>cloud-annotations</artifactId>
+                            <version>1.8.0</version>
+                        </path>
+                    </annotationProcessorPaths>
                 </configuration>
             </plugin>
             <plugin>
@@ -92,9 +100,24 @@
             <version>2.11.1</version>
         </dependency>
         <dependency>
+            <groupId>cloud.commandframework</groupId>
+            <artifactId>cloud-paper</artifactId>
+            <version>1.8.0</version>
+        </dependency>
+        <dependency>
+            <groupId>cloud.commandframework</groupId>
+            <artifactId>cloud-annotations</artifactId>
+            <version>1.8.0</version>
+        </dependency>
+        <dependency>
+            <groupId>cloud.commandframework</groupId>
+            <artifactId>cloud-minecraft-extras</artifactId>
+            <version>1.8.0</version>
+        </dependency>
+        <dependency>
             <groupId>com.onarandombox.multiversecore</groupId> <!-- Don't forget to replace this -->
             <artifactId>Multiverse-Core</artifactId> <!-- Replace this as well -->
-            <version>RELEASE</version> <!-- This too -->
+            <version>LATEST</version> <!-- This too -->
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -105,3 +128,4 @@
         </dependency>
     </dependencies>
 </project>
+
