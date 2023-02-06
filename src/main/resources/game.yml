@@ -1,4 +1,7 @@
 countdown: "&aGame will start in %time%"
+game-display:
+  - "&a&lGames"
+  - "{GAME-DISPLAY} &f&l- &a&lGame: &f{gameName} &l- &a&lSize: &f{size}"
 
 games:
   test:
@@ -13,6 +16,21 @@ games:
         z: 0
       2:
         world: test
+        x: 0
+        y: 50
+        z: 0
+  test2:
+    displayName: test2
+    maxPlayers: 10
+    minPlayers: 1
+    teams:
+      1:
+        world: test2
+        x: 0
+        y: 60
+        z: 0
+      2:
+        world: test2
         x: 0
         y: 50
         z: 0

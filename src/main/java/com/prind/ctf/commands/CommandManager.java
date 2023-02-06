@@ -22,6 +22,7 @@ import cloud.commandframework.minecraft.extras.MinecraftHelp;
 import cloud.commandframework.paper.PaperCommandManager;
 import com.prind.ctf.CTF;
 import com.prind.ctf.commands.cmds.GameJoinCommand;
+import com.prind.ctf.commands.cmds.GameListCommand;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
@@ -126,6 +127,7 @@ public class CommandManager {
   private void constructCommands() {
     this.annotationParser.parse(this);
     this.annotationParser.parse(new GameJoinCommand());
+    this.annotationParser.parse(new GameListCommand());
     // Parse all @CommandContainer-annotated classes
     try {
       this.annotationParser.parseContainers();
