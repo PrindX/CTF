@@ -1,0 +1,18 @@
+countdown: "&aGame will start in %time%"
+
+games:
+  test:
+    displayName: test
+    maxPlayers: 10
+    minPlayers: 1
+    teams:
+      1:
+        world: test
+        x: 0
+        y: 60
+        z: 0
+      2:
+        world: test
+        x: 0
+        y: 50
+        z: 0

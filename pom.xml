@@ -26,14 +26,6 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
-
-                    <annotationProcessorPaths>
-                        <path>
-                            <groupId>cloud.commandframework</groupId>
-                            <artifactId>cloud-annotations</artifactId>
-                            <version>1.8.0</version>
-                        </path>
-                    </annotationProcessorPaths>
                 </configuration>
             </plugin>
             <plugin>
@@ -81,6 +73,10 @@
             <url>https://repo.codemc.org/repository/maven-public/</url>
             <layout>default</layout>
         </repository>
+        <repository>
+            <id>OnARandomBox</id>
+            <url>https://repo.onarandombox.com/content/groups/public/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -93,22 +89,19 @@
         <dependency>
             <groupId>de.tr7zw</groupId>
             <artifactId>item-nbt-api</artifactId>
-            <version>2.10.0</version>
+            <version>2.11.1</version>
         </dependency>
         <dependency>
-            <groupId>cloud.commandframework</groupId>
-            <artifactId>cloud-paper</artifactId>
-            <version>1.8.0</version>
+            <groupId>com.onarandombox.multiversecore</groupId> <!-- Don't forget to replace this -->
+            <artifactId>Multiverse-Core</artifactId> <!-- Replace this as well -->
+            <version>RELEASE</version> <!-- This too -->
+            <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>cloud.commandframework</groupId>
-            <artifactId>cloud-annotations</artifactId>
-            <version>1.8.0</version>
-        </dependency>
-        <dependency>
-            <groupId>cloud.commandframework</groupId>
-            <artifactId>cloud-minecraft-extras</artifactId>
-            <version>1.8.0</version>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.24</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>
