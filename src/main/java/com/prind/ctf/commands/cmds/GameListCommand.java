@@ -9,6 +9,7 @@ import com.prind.ctf.util.ChatUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.Arrays;
 
@@ -18,7 +19,9 @@ public class GameListCommand {
     private FileConfiguration gameConfig = CTF.getInstance().getGameConfig().getConfiguration();
 
     @CommandMethod("game list")
-    public void onJoinCommand(CommandSender sender, Player player) {
+    public void onJoinCommand(
+            final @NonNull Player player
+    ) {
         for (String s : gameConfig.getStringList("game-display")) {
             if (!s.startsWith("{GAME-DISPLAY}")) {
                 ChatUtil.message(player, s);
