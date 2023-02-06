@@ -73,33 +73,35 @@ public class Game {
     }
 
     public void joinGame(Player player) {
-        if (!isState(GameState.LOBBY) || !isState(GameState.STARTING)) return;
-        if (players.size() >= maxPlayers) {
-            ChatUtil.message(player, "&cGame is full, Cannot Join!");
-            return;
-        }
+        if (isState(GameState.LOBBY) || isState(GameState.STARTING)) {
+            System.out.println("JoinGame method beginning");
+            if (players.size() >= maxPlayers) {
+                ChatUtil.message(player, "&cGame is full, Cannot Join!");
+                return;
+            }
 
-        if (players.contains(player)) {
-            ChatUtil.message(player, "&cYou are already in this game!");
-            return;
-        }
-        players.add(player);
+            if (players.contains(player)) {
+                ChatUtil.message(player, "&cYou are already in this game!");
+                return;
+            }
+            players.add(player);
 
         /*
         Implement kits (clear invs, give kit items, blah blah)
          */
 
-        if (players.size() >= minPlayers && !isState(GameState.STARTING)) {
-            setGameState(GameState.STARTING);
-            startCountdown();
-        }
+            if (players.size() >= minPlayers && !isState(GameState.STARTING)) {
+                setGameState(GameState.STARTING);
+                startCountdown();
+            }
 
-        CTF.getInstance().getGameManager().setGame(player, this);
+            CTF.getInstance().getGameManager().setGame(player, this);
+        }
     }
 
     public void startCountdown() {
         new BukkitRunnable() {
-            int time = 5;
+            int time = 6;
             @Override
             public void run() {
                 time--;
@@ -110,11 +112,12 @@ public class Game {
                     spawnLocations();
                     return;
                 }
+
                 for (Player player : players) {
                     ChatUtil.message(player, gameConfig.getString("countdown").replace("%time%", String.valueOf(time)));
                 }
             }
-        }.run();
+        }.runTaskTimer(CTF.getInstance(), 0, 20);
     }
 
     public void setGameState(GameState state) {

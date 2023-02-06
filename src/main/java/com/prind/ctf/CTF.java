@@ -21,7 +21,7 @@ public final class CTF extends JavaPlugin {
         this.gameManager = new GameManager(this);
 
         for (String key : gameConfig.getConfiguration().getConfigurationSection("games").getKeys(false)) {
-            Game game = gameManager.getGameByName(gameConfig.getConfiguration().getString("games." + key + ".displayName"));
+            Game game = new Game(gameConfig.getConfiguration().getString("games." + key + ".displayName"));
             gameManager.registerGames(game);
         }
 
