@@ -26,6 +26,8 @@ public final class CTF extends JavaPlugin {
         }
 
         new CommandManager(this);
+
+        saveDefaultConfig();
     }
 
     @Override
