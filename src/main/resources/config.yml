@@ -1,3 +1,14 @@
+countdown: "&aGame will start in %time%"
+game-display:
+  - "&a&lGames"
+  - "{GAME-DISPLAY} &f&l- &a&lGame: &f{gameName} &l- &a&lSize: &f{size}"
+
+spawn:
+  world: world
+  x: 0
+  y: 60
+  z: 0
+
 database:
   user: root
   pass: password1234

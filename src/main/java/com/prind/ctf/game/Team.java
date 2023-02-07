@@ -16,8 +16,10 @@ public class Team {
 
     private int id;
 
-    private List<Player> players = new ArrayList<>();
-    private List<Player> playerIsKing = new ArrayList<>();
+    private int flagsCaptured = 0;
+
+    private final List<Player> players = new ArrayList<>();
+    private final List<Player> playerIsKing = new ArrayList<>();
 
     public Team(int id) {
         this.id = id;
@@ -43,5 +45,9 @@ public class Team {
         for (Player player : players) {
             player.teleport(new Location(gameWorld.getCBWorld(), x, y, z));
         }
+    }
+
+    public boolean hasWon() {
+        return flagsCaptured >= 3;
     }
 }

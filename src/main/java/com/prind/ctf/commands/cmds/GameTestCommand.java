@@ -5,18 +5,16 @@ import cloud.commandframework.annotations.CommandMethod;
 import com.prind.ctf.CTF;
 import com.prind.ctf.game.Game;
 import com.prind.ctf.game.manager.GameManager;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.checkerframework.checker.nullness.qual.NonNull;
 
-public class GameJoinCommand {
+public class GameTestCommand {
 
     private GameManager gameManager = CTF.getInstance().getGameManager();
 
-    @CommandMethod("game join <game>")
-    public void onJoinCommand(Player player, @Argument("game")String gameName) {
+    @CommandMethod("game test <game> <team> <points>")
+    public void onJoinCommand(Player player, @Argument("game")String gameName, @Argument("team")int id, @Argument("points")int amount) {
         Game game = gameManager.getGameByName(gameName);
-        game.joinGame(player);
-        System.out.println("Game Join command has ran for Game: " + game.getDisplayName());
+
+
     }
 }

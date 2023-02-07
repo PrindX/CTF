@@ -19,9 +19,7 @@ public class GameListCommand {
     private FileConfiguration gameConfig = CTF.getInstance().getGameConfig().getConfiguration();
 
     @CommandMethod("game list")
-    public void onJoinCommand(
-            final @NonNull Player player
-    ) {
+    public void onJoinCommand(Player player) {
         for (String s : gameConfig.getStringList("game-display")) {
             if (!s.startsWith("{GAME-DISPLAY}")) {
                 ChatUtil.message(player, s);
