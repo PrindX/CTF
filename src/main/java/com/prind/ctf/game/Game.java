@@ -2,6 +2,7 @@ package com.prind.ctf.game;
 
 import com.prind.ctf.CTF;
 import com.prind.ctf.game.enums.GameState;
+import com.prind.ctf.game.tasks.CountdownTask;
 import com.prind.ctf.util.ChatUtil;
 import lombok.Getter;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -57,6 +58,7 @@ public class Game {
 
             int rand = ThreadLocalRandom.current().nextInt(team.getPlayers().size());
             Player player = team.getPlayers().get(rand);
+            player.sendActionBar(ChatUtil.translate("&aYou are the &6&lKing"));
             team.addKing(player);
         }
     }
@@ -86,39 +88,47 @@ public class Game {
             }
             players.add(player);
 
-        /*
-        Implement kits (clear invs, give kit items, blah blah)
-         */
+            /*
+            Implement kits (clear invs, give kit items, blah blah)
+             */
 
             if (players.size() >= minPlayers && !isState(GameState.STARTING)) {
                 setGameState(GameState.STARTING);
-                startCountdown();
+
+                CountdownTask countdownTask = new CountdownTask(this);
+                countdownTask.runTaskTimer(CTF.getInstance(), 0, 20);
             }
 
             CTF.getInstance().getGameManager().setGame(player, this);
         }
     }
 
-    public void startCountdown() {
-        new BukkitRunnable() {
-            int time = 6;
-            @Override
-            public void run() {
-                time--;
-                if (time <= 0) {
-                    cancel();
-                    setGameState(GameState.ACTIVE);;
-                    assignTeams();
-                    spawnLocations();
-                    return;
-                }
+    /*
+        a runnable which deals with all, deployment of powerups while game is active,
+        as well as dealing with game end method.
 
-                for (Player player : players) {
-                    ChatUtil.message(player, gameConfig.getString("countdown").replace("%time%", String.valueOf(time)));
-                }
-            }
-        }.runTaskTimer(CTF.getInstance(), 0, 20);
-    }
+     */
+
+//    public void startCountdown() {
+//        new BukkitRunnable() {
+//            int time = 6;
+//            @Override
+//            public void run() {
+//                time--;
+//                if (time <= 0) {
+//                    cancel();
+//                    setGameState(GameState.ACTIVE);;
+//                    assignTeams();
+//                    spawnLocations();
+//                    return;
+//                }
+//
+//                for (Player player : players) {
+//                    ChatUtil.message(player, gameConfig.getString("countdown").replace("%time%", String.valueOf(time)));
+//                }
+//            }
+//        }.runTaskTimer(CTF.getInstance(), 0, 20);
+//    }
 
     public void setGameState(GameState state) {
         this.gameState = state;
