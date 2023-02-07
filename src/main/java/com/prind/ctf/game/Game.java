@@ -3,6 +3,7 @@ package com.prind.ctf.game;
 import com.prind.ctf.CTF;
 import com.prind.ctf.game.enums.GameState;
 import com.prind.ctf.game.tasks.CountdownTask;
+import com.prind.ctf.game.tasks.GameTask;
 import com.prind.ctf.util.ChatUtil;
 import lombok.Getter;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -17,6 +18,8 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Game {
 
     private final FileConfiguration gameConfig = CTF.getInstance().getGameConfig().getConfiguration();
+    private final FileConfiguration config = CTF.getInstance().getConfig();
+
     private GameState gameState = GameState.LOBBY;
 
     // Basic information
@@ -58,12 +61,23 @@ public class Game {
 
             int rand = ThreadLocalRandom.current().nextInt(team.getPlayers().size());
             Player player = team.getPlayers().get(rand);
-            player.sendActionBar(ChatUtil.translate("&aYou are the &6&lKing"));
+            player.sendActionBar(ChatUtil.translate(config.getString("king-selected")));
             team.addKing(player);
         }
     }
 
-    public void spawnLocations() {
+    public void sendToSpawn() {
+        for (Team team : teams) {
+            String world = config.getString("spawn.world");
+            double x = config.getDouble("spawn.x");
+            double y = config.getDouble("spawn.y");
+            double z = config.getDouble("spawn.z");
+
+            team.sendPlayers(world, x, y, z);
+        }
+    }
+
+    public void sendToArena() {
         for (Team team : teams) {
             String world = gameConfig.getString("games." + getDisplayName() + ".teams." + team.getId() + ".world");
             double x = gameConfig.getDouble("games." + getDisplayName() + ".teams." + team.getId() + ".x");
@@ -76,7 +90,6 @@ public class Game {
 
     public void joinGame(Player player) {
         if (isState(GameState.LOBBY) || isState(GameState.STARTING)) {
-            System.out.println("JoinGame method beginning");
             if (players.size() >= maxPlayers) {
                 ChatUtil.message(player, "&cGame is full, Cannot Join!");
                 return;
@@ -88,13 +101,11 @@ public class Game {
             }
             players.add(player);
 
-            /*
-            Implement kits (clear invs, give kit items, blah blah)
-             */
+            // Replace inventory with waiting area items.
+            // Teleport players to waiting area.
 
             if (players.size() >= minPlayers && !isState(GameState.STARTING)) {
                 setGameState(GameState.STARTING);
-
                 CountdownTask countdownTask = new CountdownTask(this);
                 countdownTask.runTaskTimer(CTF.getInstance(), 0, 20);
             }
@@ -103,6 +114,28 @@ public class Game {
         }
     }
 
+    public void startGame() {
+        if (!isState(GameState.STARTING)) return;
+        setGameState(GameState.ACTIVE);
+
+        GameTask gameTask = new GameTask(this);
+        gameTask.runTaskTimer(CTF.getInstance(), 0, 20);
+
+        assignTeams();
+        sendToArena();
+    }
+
+    public void endGame() {
+        if (!isState(GameState.ACTIVE)) {
+            return;
+        }
+        setGameState(GameState.LOBBY);
+        sendToSpawn();
+        teams.clear();
+        players.clear();
+
+        // Add stats to player
+    }
     /*
         a runnable which deals with all, deployment of powerups while game is active,
         as well as dealing with game end method.

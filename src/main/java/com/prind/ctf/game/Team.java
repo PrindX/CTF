@@ -4,6 +4,7 @@ import com.onarandombox.MultiverseCore.MultiverseCore;
 import com.onarandombox.MultiverseCore.api.MVWorldManager;
 import com.onarandombox.MultiverseCore.api.MultiverseWorld;
 import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -11,7 +12,7 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
+@Getter @Setter
 public class Team {
 
     private int id;
@@ -47,7 +48,15 @@ public class Team {
         }
     }
 
+    public void addFlags(int amount) {
+        setFlagsCaptured(getFlags() + amount);
+    }
+
+    public int getFlags() {
+        return getFlagsCaptured();
+    }
+
     public boolean hasWon() {
-        return flagsCaptured >= 3;
+        return getFlags() >= 3;
     }
 }

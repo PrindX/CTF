@@ -17,6 +17,5 @@ public class GameJoinCommand {
     public void onJoinCommand(Player player, @Argument("game")String gameName) {
         Game game = gameManager.getGameByName(gameName);
         game.joinGame(player);
-        System.out.println("Game Join command has ran for Game: " + game.getDisplayName());
     }
 }

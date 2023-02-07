@@ -7,12 +7,12 @@ games:
       1:
         world: test
         x: 0
-        y: 60
+        y: 70
         z: 0
       2:
         world: test
         x: 0
-        y: 50
+        y: 70
         z: 0
   test2:
     displayName: test2

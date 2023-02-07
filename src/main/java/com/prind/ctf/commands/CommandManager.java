@@ -23,6 +23,7 @@ import cloud.commandframework.paper.PaperCommandManager;
 import com.prind.ctf.CTF;
 import com.prind.ctf.commands.cmds.GameJoinCommand;
 import com.prind.ctf.commands.cmds.GameListCommand;
+import com.prind.ctf.commands.cmds.GameTestCommand;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
@@ -128,6 +129,7 @@ public class CommandManager {
     this.annotationParser.parse(this);
     this.annotationParser.parse(new GameJoinCommand());
     this.annotationParser.parse(new GameListCommand());
+    this.annotationParser.parse(new GameTestCommand());
     // Parse all @CommandContainer-annotated classes
     try {
       this.annotationParser.parseContainers();

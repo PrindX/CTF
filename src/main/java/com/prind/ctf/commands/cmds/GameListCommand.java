@@ -16,11 +16,11 @@ import java.util.Arrays;
 public class GameListCommand {
 
     private GameManager gameManager = CTF.getInstance().getGameManager();
-    private FileConfiguration gameConfig = CTF.getInstance().getGameConfig().getConfiguration();
+    private FileConfiguration config = CTF.getInstance().getConfig();
 
     @CommandMethod("game list")
     public void onJoinCommand(Player player) {
-        for (String s : gameConfig.getStringList("game-display")) {
+        for (String s : config.getStringList("game-display")) {
             if (!s.startsWith("{GAME-DISPLAY}")) {
                 ChatUtil.message(player, s);
                 continue;
