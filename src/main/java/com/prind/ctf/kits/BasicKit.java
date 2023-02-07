@@ -13,22 +13,16 @@ import java.util.ArrayList;
 public class BasicKit implements Kit {
     @Override
     public ItemStack getIcon() {
-        ItemStack item = new ItemStack(Material.DIAMOND_SWORD);
-        ItemMeta meta = item.getItemMeta();
-
-        meta.displayName(
-                Component.text("Basic Kit").color(TextColor.color(71, 226, 255))
+        return ItemBuilder.getKitIcon(
+                Material.DIAMOND_SWORD,
+                getName(),
+                "Get a quick start in the arena"
         );
+    }
 
-        ArrayList<Component> loreComps = new ArrayList<>();
-        loreComps.add(
-                Component.text("Get a quickstart in the arena").color(TextColor.color(163, 255, 91))
-        );
-        meta.lore(loreComps);
-
-        item.setItemMeta(meta);
-
-        return item;
+    @Override
+    public String getName() {
+        return "Basic Kit";
     }
 
     @Override
