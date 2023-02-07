@@ -7,6 +7,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ItemBuilder {
 
@@ -25,6 +26,27 @@ public class ItemBuilder {
                                 Component.text(description).color(TextColor.color(255, 161, 68))
                         )
         );
+
+        item.setItemMeta(meta);
+
+        return item;
+    }
+
+    public static ItemStack getCustomItem(Material material, String name, String itemDescription, String abilityDescription) {
+        ItemStack item = new ItemStack(material);
+        ItemMeta meta = item.getItemMeta();
+
+        meta.displayName(
+                Component.text(name).color(TextColor.color(255, 161, 68))
+        );
+
+        ArrayList<Component> loreComps = new ArrayList<>(List.of(
+                Component.text("Item Description: " + itemDescription).color(TextColor.color(243, 255, 0)),
+                Component.text(""),
+                Component.text("Item Ability: " + abilityDescription).color(TextColor.color(243, 255, 0))
+            ));
+
+        item.setItemMeta(meta);
 
         return item;
     }
