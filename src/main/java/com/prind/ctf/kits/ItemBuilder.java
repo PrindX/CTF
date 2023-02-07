@@ -1,5 +1,6 @@
 package com.prind.ctf.kits;
 
+import de.tr7zw.changeme.nbtapi.NBTItem;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Material;
@@ -32,7 +33,7 @@ public class ItemBuilder {
         return item;
     }
 
-    public static ItemStack getCustomItem(Material material, String name, String itemDescription, String abilityDescription) {
+    public static ItemStack getCustomItem(Material material, ItemEnum itemEnum, String name, String itemDescription, String abilityDescription) {
         ItemStack item = new ItemStack(material);
         ItemMeta meta = item.getItemMeta();
 
@@ -47,6 +48,12 @@ public class ItemBuilder {
             ));
 
         item.setItemMeta(meta);
+
+        NBTItem nbtItem = new NBTItem(item);
+        nbtItem.setEnum("item-id", itemEnum);
+        nbtItem.mergeCustomNBT(item);
+
+        item = nbtItem.getItem();
 
         return item;
     }
