@@ -51,5 +51,9 @@ public class GameTask extends BukkitRunnable {
 
             }
         }
+        /*
+        Powers ups
+         */
+
     }
 }

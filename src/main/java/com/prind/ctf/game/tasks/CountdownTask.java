@@ -29,7 +29,7 @@ public class CountdownTask extends BukkitRunnable {
         }
 
         for (Player player : game.getPlayers()) {
-            ChatUtil.message(player, config.getString("countdown").replace("%time%", String.valueOf(countdownTime)));
+            ChatUtil.message(player, config.getString("messages.countdown").replace("%time%", String.valueOf(countdownTime)));
         }
     }
 }

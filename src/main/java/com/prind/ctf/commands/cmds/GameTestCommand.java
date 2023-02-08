@@ -18,6 +18,5 @@ public class GameTestCommand {
 
         Team team = game.getTeamById(id);
         team.addFlags(amount);
-        System.out.println("COmmand ran");
     }
 }

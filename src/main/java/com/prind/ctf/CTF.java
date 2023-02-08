@@ -1,5 +1,6 @@
 package com.prind.ctf;
 
+import com.onarandombox.MultiverseCore.MultiverseCore;
 import com.prind.ctf.commands.CommandManager;
 import com.prind.ctf.database.Database;
 import com.prind.ctf.database.MySQL;
@@ -9,6 +10,7 @@ import com.prind.ctf.game.manager.GameManager;
 import com.prind.ctf.stats.StatsManager;
 import com.prind.ctf.util.ConfigUtil;
 import lombok.Getter;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 @Getter
@@ -17,6 +19,7 @@ public final class CTF extends JavaPlugin {
     private ConfigUtil gameConfig;
 
     private GameManager gameManager;
+    private MultiverseCore multiverseCore;
 
     private StatsManager statsManager;
     private Database remoteDatabase;
@@ -26,6 +29,8 @@ public final class CTF extends JavaPlugin {
         // Plugin startup logic
         this.statsManager = new StatsManager();
         this.gameConfig = new ConfigUtil(this, "game", this.getDataFolder().getAbsolutePath());
+        this.multiverseCore = (MultiverseCore) Bukkit.getServer().getPluginManager().getPlugin("Multiverse-Core");
+
         this.gameManager = new GameManager(this);
 
         for (String key : gameConfig.getConfiguration().getConfigurationSection("games").getKeys(false)) {

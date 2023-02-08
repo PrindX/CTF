@@ -3,6 +3,7 @@ package com.prind.ctf.game;
 import com.onarandombox.MultiverseCore.MultiverseCore;
 import com.onarandombox.MultiverseCore.api.MVWorldManager;
 import com.onarandombox.MultiverseCore.api.MultiverseWorld;
+import com.prind.ctf.CTF;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
@@ -39,8 +40,7 @@ public class Team {
     }
 
     public void sendPlayers(String world, double x, double y, double z) {
-        MultiverseCore core = (MultiverseCore) Bukkit.getServer().getPluginManager().getPlugin("Multiverse-Core");
-        MVWorldManager worldManager = core.getMVWorldManager();
+        MVWorldManager worldManager = CTF.getInstance().getMultiverseCore().getMVWorldManager();
         MultiverseWorld gameWorld = worldManager.getMVWorld(world);
 
         for (Player player : players) {

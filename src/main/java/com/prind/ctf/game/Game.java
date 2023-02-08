@@ -1,11 +1,16 @@
 package com.prind.ctf.game;
 
+import com.onarandombox.MultiverseCore.MultiverseCore;
+import com.onarandombox.MultiverseCore.api.MVWorldManager;
+import com.onarandombox.MultiverseCore.api.MultiverseWorld;
 import com.prind.ctf.CTF;
 import com.prind.ctf.game.enums.GameState;
 import com.prind.ctf.game.tasks.CountdownTask;
 import com.prind.ctf.game.tasks.GameTask;
 import com.prind.ctf.util.ChatUtil;
 import lombok.Getter;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -44,6 +49,29 @@ public class Game {
         teams.add(new Team(2));
     }
 
+    public void startGame() {
+        if (!isState(GameState.STARTING)) return;
+        setGameState(GameState.ACTIVE);
+
+        GameTask gameTask = new GameTask(this);
+        gameTask.runTaskTimer(CTF.getInstance(), 0, 20);
+
+        assignTeams();
+        sendToArena();
+    }
+
+    public void endGame() {
+        if (!isState(GameState.ACTIVE)) {
+            return;
+        }
+        setGameState(GameState.LOBBY);
+        sendToSpawn();
+        teams.clear();
+        players.clear();
+
+        // Add stats to player
+    }
+
     public Team getTeamById(int id) {
         for (Team team : teams) {
             if (team.getId() == id) return team;
@@ -61,17 +89,28 @@ public class Game {
 
             int rand = ThreadLocalRandom.current().nextInt(team.getPlayers().size());
             Player player = team.getPlayers().get(rand);
-            player.sendActionBar(ChatUtil.translate(config.getString("king-selected")));
+            player.sendActionBar(ChatUtil.translate(config.getString("messages.king-selected")));
             team.addKing(player);
         }
     }
 
+    public void sendToWaiting(Player player) {
+        MVWorldManager worldManager = CTF.getInstance().getMultiverseCore().getMVWorldManager();
+
+        String world = config.getString("locations.waiting-area.world");
+        double x = config.getDouble("locations.waiting-area.x");
+        double y = config.getDouble("locations.waiting-area.y");
+        double z = config.getDouble("locations.waiting-area.z");
+
+        player.teleport(new Location(worldManager.getMVWorld(world).getCBWorld(), x, y, z));
+    }
+
     public void sendToSpawn() {
         for (Team team : teams) {
-            String world = config.getString("spawn.world");
-            double x = config.getDouble("spawn.x");
-            double y = config.getDouble("spawn.y");
-            double z = config.getDouble("spawn.z");
+            String world = config.getString("locations.spawn.world");
+            double x = config.getDouble("locations.spawn.x");
+            double y = config.getDouble("locations.spawn.y");
+            double z = config.getDouble("locations.spawn.z");
 
             team.sendPlayers(world, x, y, z);
         }
@@ -96,10 +135,12 @@ public class Game {
             }
 
             if (players.contains(player)) {
-                ChatUtil.message(player, "&cYou are already in this game!");
+                ChatUtil.message(player, "&cYou must leave the current game to join another!");
                 return;
             }
+
             players.add(player);
+            sendToWaiting(player);
 
             // Replace inventory with waiting area items.
             // Teleport players to waiting area.
@@ -108,60 +149,15 @@ public class Game {
                 setGameState(GameState.STARTING);
                 CountdownTask countdownTask = new CountdownTask(this);
                 countdownTask.runTaskTimer(CTF.getInstance(), 0, 20);
+            } else {
+                int needed = minPlayers - players.size();
+                player.sendActionBar(ChatUtil.translate("&e" + needed + " players is needed."));
             }
 
             CTF.getInstance().getGameManager().setGame(player, this);
         }
     }
 
-    public void startGame() {
-        if (!isState(GameState.STARTING)) return;
-        setGameState(GameState.ACTIVE);
-
-        GameTask gameTask = new GameTask(this);
-        gameTask.runTaskTimer(CTF.getInstance(), 0, 20);
-
-        assignTeams();
-        sendToArena();
-    }
-
-    public void endGame() {
-        if (!isState(GameState.ACTIVE)) {
-            return;
-        }
-        setGameState(GameState.LOBBY);
-        sendToSpawn();
-        teams.clear();
-        players.clear();
-
-        // Add stats to player
-    }
-    /*
-        a runnable which deals with all, deployment of powerups while game is active,
-        as well as dealing with game end method.
-
-     */
-
-//    public void startCountdown() {
-//        new BukkitRunnable() {
-//            int time = 6;
-//            @Override
-//            public void run() {
-//                time--;
-//                if (time <= 0) {
-//                    cancel();
-//                    setGameState(GameState.ACTIVE);;
-//                    assignTeams();
-//                    spawnLocations();
-//                    return;
-//                }
-//
-//                for (Player player : players) {
-//                    ChatUtil.message(player, gameConfig.getString("countdown").replace("%time%", String.valueOf(time)));
-//                }
-//            }
-//        }.runTaskTimer(CTF.getInstance(), 0, 20);
-//    }
 
     public void setGameState(GameState state) {
         this.gameState = state;
