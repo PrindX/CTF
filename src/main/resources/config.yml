@@ -17,6 +17,7 @@ waiting-area:
   z: 100
 
 database:
+  enable: false
   user: root
   pass: password1234
   database: ctf
