@@ -1,20 +1,22 @@
-countdown: "&aGame starting in %time%"
-king-selected: "&aYou are the &6&lKing"
-game-display:
-  - "&a&lGames"
-  - "{GAME-DISPLAY} &f&l- &a&lGame: &f{gameName} &l- &a&lSize: &f{size}"
+locations:
+  spawn:
+    world: world
+    x: -224
+    y: 68
+    z: 240
+  waiting-area:
+    world: world
+    x: 10
+    y: 121
+    z: 100
 
-spawn:
-  world: world
-  x: 0
-  y: 70
-  z: 0
+messages:
+  countdown: "&aGame starting in %time%"
+  king-selected: "&aYou are the &6&lKing"
+  game-display:
+    - "&a&lGames"
+    - "{GAME-DISPLAY} &f&l- &a&lGame: &f{gameName} &l- &a&lSize: &f{size}"
 
-waiting-area:
-  world: world
-  x: 10
-  y: 100
-  z: 100
 
 database:
   user: root

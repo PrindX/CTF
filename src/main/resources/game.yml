@@ -2,14 +2,22 @@ games:
   test:
     displayName: test
     maxPlayers: 10
-    minPlayers: 1
+    minPlayers: 2
     teams:
       1:
+        flag:
+          x: 0
+          y: 0
+          z: 0
         world: test
         x: 0
         y: 70
         z: 0
       2:
+        flag:
+          x: 0
+          y: 0
+          z: 0
         world: test
         x: 0
         y: 70

@@ -20,7 +20,7 @@ public class GameListCommand {
 
     @CommandMethod("game list")
     public void onJoinCommand(Player player) {
-        for (String s : config.getStringList("game-display")) {
+        for (String s : config.getStringList("messages.game-display")) {
             if (!s.startsWith("{GAME-DISPLAY}")) {
                 ChatUtil.message(player, s);
                 continue;
