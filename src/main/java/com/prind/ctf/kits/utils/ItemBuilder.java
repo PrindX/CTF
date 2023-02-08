@@ -1,4 +1,4 @@
-package com.prind.ctf.kits;
+package com.prind.ctf.kits.utils;
 
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import net.kyori.adventure.text.Component;

@@ -1,14 +1,10 @@
 package com.prind.ctf.kits;
 
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.TextColor;
+import com.prind.ctf.kits.utils.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
-import org.bukkit.inventory.meta.ItemMeta;
-
-import java.util.ArrayList;
 
 public class BasicKit implements Kit {
     @Override
