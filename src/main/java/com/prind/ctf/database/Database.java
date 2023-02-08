@@ -14,6 +14,4 @@ public interface Database {
 
   PlayerStats fetchStats(UUID uuid);
 
-  boolean connect();
-
 }

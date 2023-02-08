@@ -2,8 +2,12 @@ package com.prind.ctf;
 
 import com.onarandombox.MultiverseCore.MultiverseCore;
 import com.prind.ctf.commands.CommandManager;
+import com.prind.ctf.database.Database;
+import com.prind.ctf.database.MySQL;
+import com.prind.ctf.database.SQLite;
 import com.prind.ctf.game.Game;
 import com.prind.ctf.game.manager.GameManager;
+import com.prind.ctf.stats.StatsManager;
 import com.prind.ctf.util.ConfigUtil;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -17,9 +21,13 @@ public final class CTF extends JavaPlugin {
     private GameManager gameManager;
     private MultiverseCore multiverseCore;
 
+    private StatsManager statsManager;
+    private Database remoteDatabase;
+
     @Override
     public void onEnable() {
         // Plugin startup logic
+        this.statsManager = new StatsManager();
         this.gameConfig = new ConfigUtil(this, "game", this.getDataFolder().getAbsolutePath());
         this.multiverseCore = (MultiverseCore) Bukkit.getServer().getPluginManager().getPlugin("Multiverse-Core");
 
@@ -33,11 +41,37 @@ public final class CTF extends JavaPlugin {
         new CommandManager(this);
 
         saveDefaultConfig();
+
+        initDatabase();
     }
 
-    @Override
-    public void onDisable() {
-        // Plugin shutdown logic
+    private void initDatabase() {
+        if (getConfig().getBoolean("database.enable")) {
+            MySQL mySQL = new MySQL();
+            long time = System.currentTimeMillis();
+            if (!mySQL.connect()) {
+                this.getLogger().severe("Could not connect to the database! Please verify your credentials and make sure that the server IP is whitelisted in MySQL.");
+                remoteDatabase = new SQLite();
+            } else {
+                remoteDatabase = mySQL;
+            }
+            if (System.currentTimeMillis() - time >= 5000) {
+                this.getLogger().severe("It took " + (System.currentTimeMillis() - time) + " ms to establish a database connection\n" +
+                        "Using this remote connection is not recommended");
+            }
+            remoteDatabase.init();
+        } else {
+            remoteDatabase = new SQLite();
+            remoteDatabase.init();
+        }
+    }
+
+    public Database getRemoteDatabase() {
+        return remoteDatabase;
+    }
+
+    public StatsManager getStatsManager() {
+        return statsManager;
     }
 
     public static CTF getInstance() {

@@ -19,6 +19,7 @@ messages:
 
 
 database:
+  enable: false
   user: root
   pass: password1234
   database: ctf

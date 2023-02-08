@@ -38,7 +38,6 @@ public class MySQL implements Database{
     this.maxLifetime = config.getInt("database.max-lifetime", 1800);
   }
 
-  @Override
   public boolean connect() {
     HikariConfig config = new HikariConfig();
 
