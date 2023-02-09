@@ -45,6 +45,6 @@ public class BasicKit implements Kit {
         inv.setItem(0, new ItemStack(Material.DIAMOND_SWORD));
         inv.setItem(1, new ItemStack(Material.BOW));
         inv.setItem(2, new ItemStack(Material.ARROW, 16));
-        inv.setItem(2, new ItemStack(Material.GOLDEN_APPLE, 6));
+        inv.setItem(3, new ItemStack(Material.GOLDEN_APPLE, 6));
     }
 }
