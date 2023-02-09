@@ -1,5 +1,6 @@
 package com.prind.ctf.kits;
 
+import com.prind.ctf.kits.enums.KitEnum;
 import com.prind.ctf.kits.utils.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -11,6 +12,7 @@ public class BasicKit implements Kit {
     public ItemStack getIcon() {
         return ItemBuilder.getKitIcon(
                 Material.DIAMOND_SWORD,
+                KitEnum.BASIC_KIT,
                 getName(),
                 "Get a quick start in the arena"
         );
@@ -19,6 +21,11 @@ public class BasicKit implements Kit {
     @Override
     public String getName() {
         return "Basic Kit";
+    }
+
+    @Override
+    public KitEnum getKitEnum() {
+        return KitEnum.BASIC_KIT;
     }
 
     @Override
