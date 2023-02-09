@@ -42,7 +42,9 @@ public class KitSelectionMenu implements InventoryHolder {
         KitEnum kitEnum = nbtItem.getEnum("kit-id", KitEnum.class);
 
         selectedKit = KitManager.getKitByEnum(kitEnum);
-        selectedKit.applyKit(player);
+        selectedKit.applyKit(player); // FOR TESTING DELETE LATER
+
+        playerStats.setSelectedKit(selectedKit);
 
         this.inventory.close();
 
