@@ -15,13 +15,14 @@ import java.util.List;
 
 public class ItemBuilder {
 
-    public static ItemStack getKitIcon (Material material, KitEnum kitEnum, String kitName, String description) {
+    public static ItemStack getKitIcon(Material material, KitEnum kitEnum, String kitName, String description) {
         ItemStack item = new ItemStack(material);
         ItemMeta meta = item.getItemMeta();
 
         meta.displayName(Component.text(kitName).color(TextColor.color(243, 255, 0)));
 
         ArrayList<Component> loreComps = new ArrayList<>();
+        loreComps.add(Component.text(""));
         loreComps.add(
                 Component
                         .text("Description: ")
@@ -30,6 +31,7 @@ public class ItemBuilder {
                                 Component.text(description).color(TextColor.color(255, 161, 68))
                         )
         );
+        meta.lore(loreComps);
 
         item.setItemMeta(meta);
 
@@ -56,6 +58,8 @@ public class ItemBuilder {
                 Component.text("Item Ability: " + abilityName).color(TextColor.color(255, 119, 6)).append(Component.text(" RIGHT CLICK").color(TextColor.color(243, 255, 0)).decorate(TextDecoration.BOLD)),
                 Component.text(itemDescription).color(TextColor.color(139, 139, 139))
             ));
+
+        meta.lore(loreComps);
 
         item.setItemMeta(meta);
 

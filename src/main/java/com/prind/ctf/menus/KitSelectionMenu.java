@@ -15,11 +15,9 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Set;
-
 public class KitSelectionMenu implements InventoryHolder {
 
-    private Inventory inventory = Bukkit.createInventory(this, 6 * 9, "Enchanted Workshop");
+    private Inventory inventory = Bukkit.createInventory(this, 6 * 9, "Kit Selection");
     private Player player;
     private PlayerStats playerStats;
 
@@ -32,7 +30,7 @@ public class KitSelectionMenu implements InventoryHolder {
     }
 
     private void fillInventory() {
-        for (Kit kit : playerStats.getKits()) {
+        for (Kit kit : playerStats.getUnlockedKits()) {
             inventory.addItem(kit.getIcon());
         }
     }
@@ -49,8 +47,8 @@ public class KitSelectionMenu implements InventoryHolder {
         this.inventory.close();
 
         player.sendMessage(Component.text(
-                "You Selected The " + selectedKit.getName()
-        ).color(TextColor.color(0, 255, 0)));
+                "You Selected The "
+        ).color(TextColor.color(0, 255, 0)).append(Component.text(selectedKit.getName()).color(TextColor.color(110, 238, 255))));
     }
 
     @Override

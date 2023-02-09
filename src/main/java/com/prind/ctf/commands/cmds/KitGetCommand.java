@@ -12,13 +12,13 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 
 public class KitGetCommand {
 
-    @CommandMethod("kit get <kit>")
+    @CommandMethod("ctf kit get <kit>")
     @CommandDescription("Get the kit you want")
     public void onKitGetCommand(
         final @NonNull Player player,
-        final @NonNull @Argument("kit")KitEnum kitEnum
+        final @NonNull @Argument("kit") KitEnum kitEnum
         ) {
         PlayerStats stats = CTF.getInstance().getStatsManager().get(player.getUniqueId());
-        stats.addKit(KitManager.getKitByEnum(kitEnum));
+        stats.addUnlockedKit(KitManager.getKitByEnum(kitEnum));
     }
 }

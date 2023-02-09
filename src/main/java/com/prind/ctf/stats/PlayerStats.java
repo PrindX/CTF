@@ -2,7 +2,7 @@ package com.prind.ctf.stats;
 
 import com.prind.ctf.kits.Kit;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -14,7 +14,7 @@ public class PlayerStats {
   private int kills;
   private int wins;
 
-  private Set<Kit> kits;
+  private Set<Kit> unlockedKits = new HashSet<>();
 
   public PlayerStats(UUID uuid) {
     this.uuid = uuid;
@@ -36,8 +36,8 @@ public class PlayerStats {
     return wins;
   }
 
-  public Set<Kit> getKits() {
-    return kits;
+  public Set<Kit> getUnlockedKits() {
+    return unlockedKits;
   }
 
   public void setDeaths(int deaths) {
@@ -52,12 +52,12 @@ public class PlayerStats {
     this.wins = wins;
   }
 
-  public void setKits(Set<Kit> kits) {
-    this.kits = kits;
+  public void setUnlockedKits(Set<Kit> unlockedKits) {
+    this.unlockedKits = unlockedKits;
   }
 
-  public void addKit(Kit kit) {
-    this.kits.add(kit);
+  public void addUnlockedKit(Kit kit) {
+    this.unlockedKits.add(kit);
   }
 
 }
