@@ -7,6 +7,7 @@ import com.prind.ctf.database.MySQL;
 import com.prind.ctf.database.SQLite;
 import com.prind.ctf.game.Game;
 import com.prind.ctf.game.manager.GameManager;
+import com.prind.ctf.menus.listeners.KitSelectionMenuListener;
 import com.prind.ctf.stats.StatsManager;
 import com.prind.ctf.util.ConfigUtil;
 import lombok.Getter;
@@ -43,6 +44,12 @@ public final class CTF extends JavaPlugin {
         saveDefaultConfig();
 
         initDatabase();
+
+        registerListeners();
+    }
+
+    private void registerListeners() {
+        Bukkit.getPluginManager().registerEvents(new KitSelectionMenuListener(), this);
     }
 
     private void initDatabase() {
