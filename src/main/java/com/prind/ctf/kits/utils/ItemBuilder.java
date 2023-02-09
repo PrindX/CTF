@@ -49,15 +49,37 @@ public class ItemBuilder {
         ItemMeta meta = item.getItemMeta();
 
         meta.displayName(
-                Component.text(name).color(TextColor.color(255, 161, 68))
+                Component.text(name).color(TextColor.color(255, 119, 6))
         );
 
+        String[] itemDescSplitted = itemDescription.split("\n");
+
         ArrayList<Component> loreComps = new ArrayList<>(List.of(
-                Component.text("Item Description: ").color(TextColor.color(243, 255, 0)).append(Component.text(itemDescription).color(TextColor.color(139, 139, 139))),
                 Component.text(""),
-                Component.text("Item Ability: " + abilityName).color(TextColor.color(255, 119, 6)).append(Component.text(" RIGHT CLICK").color(TextColor.color(243, 255, 0)).decorate(TextDecoration.BOLD)),
-                Component.text(itemDescription).color(TextColor.color(139, 139, 139))
+                Component.text("Item Description: ").color(TextColor.color(255, 119, 6)).append(Component.text(itemDescSplitted[0]).color(TextColor.color(139, 139, 139)))
             ));
+
+        itemDescSplitted[0] = null;
+
+        for (String str : itemDescSplitted) {
+            if (str == null) continue;
+
+            loreComps.add(
+                    Component.text(str).color(TextColor.color(139, 139, 139)
+                    ));
+        }
+
+        loreComps.addAll(List.of(
+                Component.text(""),
+                Component.text("Item Ability: " + abilityName).color(TextColor.color(255, 119, 6)).append(Component.text(" RIGHT CLICK").color(TextColor.color(243, 255, 0)).decorate(TextDecoration.BOLD))
+        ));
+
+        String[] abilityDescSplitted = abilityDescription.split("\n");
+        for (String str : abilityDescSplitted) {
+            loreComps.add(
+                    Component.text(str).color(TextColor.color(139, 139, 139)
+            ));
+        }
 
         meta.lore(loreComps);
 
