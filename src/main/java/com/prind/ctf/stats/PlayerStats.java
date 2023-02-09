@@ -1,6 +1,8 @@
 package com.prind.ctf.stats;
 
 import com.prind.ctf.kits.Kit;
+import com.prind.ctf.kits.KitManager;
+import com.prind.ctf.kits.enums.KitEnum;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -36,8 +38,18 @@ public class PlayerStats {
     return wins;
   }
 
-  public Set<Kit> getUnlockedKits() {
+  public Set<Kit> getUnlockedKitsSet() {
     return unlockedKits;
+  }
+
+  public String getUnlockedKitsString() {
+    StringBuilder kits = new StringBuilder();
+
+    for (Kit kit : unlockedKits) {
+      kits.append(kit.getKitEnum()).append(",");
+    }
+
+    return kits.toString();
   }
 
   public void setDeaths(int deaths) {
@@ -52,8 +64,20 @@ public class PlayerStats {
     this.wins = wins;
   }
 
-  public void setUnlockedKits(Set<Kit> unlockedKits) {
+  public void setUnlockedKitsSet(Set<Kit> unlockedKits) {
     this.unlockedKits = unlockedKits;
+  }
+
+  public void SetUnlockedKitsString(String str) {
+    String[] kitEnumsString = str.split(",");
+
+    Set<Kit> newUnlockedKits = new HashSet<>();
+
+    for (String kitEnum : kitEnumsString) {
+      newUnlockedKits.add(KitManager.getKitByEnum(KitEnum.valueOf(kitEnum)));
+    }
+
+    this.unlockedKits = newUnlockedKits;
   }
 
   public void addUnlockedKit(Kit kit) {
