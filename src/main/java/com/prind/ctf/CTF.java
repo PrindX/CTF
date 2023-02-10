@@ -6,6 +6,7 @@ import com.prind.ctf.database.Database;
 import com.prind.ctf.database.MySQL;
 import com.prind.ctf.database.SQLite;
 import com.prind.ctf.game.Game;
+import com.prind.ctf.game.event.GameEvent;
 import com.prind.ctf.game.manager.GameManager;
 import com.prind.ctf.menus.listeners.KitSelectionMenuListener;
 import com.prind.ctf.stats.StatsManager;
@@ -50,6 +51,7 @@ public final class CTF extends JavaPlugin {
 
     private void registerListeners() {
         Bukkit.getPluginManager().registerEvents(new KitSelectionMenuListener(), this);
+        Bukkit.getPluginManager().registerEvents(new GameEvent(), this);
     }
 
     private void initDatabase() {

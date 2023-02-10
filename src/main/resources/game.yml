@@ -28,11 +28,19 @@ games:
     minPlayers: 1
     teams:
       1:
+        flag:
+          x: 2
+          y: 70
+          z: -2
         world: test2
         x: 0
         y: 60
         z: 0
       2:
+        flag:
+          x: 2
+          y: 70
+          z: 4
         world: test2
         x: 0
         y: 50

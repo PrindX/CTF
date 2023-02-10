@@ -1,4 +1,4 @@
-package com.prind.ctf.commands.cmds;
+package com.prind.ctf.commands.cmds.game;
 
 import cloud.commandframework.annotations.Argument;
 import cloud.commandframework.annotations.CommandMethod;
