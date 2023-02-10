@@ -16,10 +16,12 @@ public class PlayerStats {
   private int kills;
   private int wins;
 
+  private Kit selectedKit;
   private Set<Kit> unlockedKits = new HashSet<>();
 
   public PlayerStats(UUID uuid) {
     this.uuid = uuid;
+    this.selectedKit = KitManager.getKitByEnum(KitEnum.BASIC_KIT);
   }
 
   public UUID getUuid() {
@@ -36,6 +38,10 @@ public class PlayerStats {
 
   public int getWins() {
     return wins;
+  }
+
+  public Kit getSelectedKit() {
+    return selectedKit;
   }
 
   public Set<Kit> getUnlockedKitsSet() {
@@ -62,6 +68,10 @@ public class PlayerStats {
 
   public void setWins(int wins) {
     this.wins = wins;
+  }
+
+  public void setSelectedKit(Kit selectedKit) {
+    this.selectedKit = selectedKit;
   }
 
   public void setUnlockedKitsSet(Set<Kit> unlockedKits) {

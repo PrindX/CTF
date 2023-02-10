@@ -1,5 +1,6 @@
 package com.prind.ctf.kits;
 
+import com.prind.ctf.kits.enums.ItemEnum;
 import com.prind.ctf.kits.enums.KitEnum;
 import com.prind.ctf.kits.utils.ItemBuilder;
 import org.bukkit.Material;
@@ -42,9 +43,16 @@ public class BasicKit implements Kit {
                 }
         );
 
-        inv.setItem(0, new ItemStack(Material.DIAMOND_SWORD));
+        inv.setItem(0, ItemBuilder.getCustomItem(
+                Material.DIAMOND_SWORD,
+                ItemEnum.SWORD_OF_DEATH,
+                "Sword Of Death",
+                "Slay your enemies\nand get a reward\nfor each kill",
+                "Strike The Rage",
+                "Spawns a lighting bolt where you look at\nand kill everyone in\na 5 block radius"
+        ));
         inv.setItem(1, new ItemStack(Material.BOW));
         inv.setItem(2, new ItemStack(Material.ARROW, 16));
-        inv.setItem(2, new ItemStack(Material.GOLDEN_APPLE, 6));
+        inv.setItem(3, new ItemStack(Material.GOLDEN_APPLE, 6));
     }
 }
