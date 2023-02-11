@@ -25,4 +25,4 @@ database:
   database: ctf
   host: localhost
   port: 3306
-  ssl: false
+  ssl: true
