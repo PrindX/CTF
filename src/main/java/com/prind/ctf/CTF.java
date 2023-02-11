@@ -7,7 +7,7 @@ import com.prind.ctf.database.MySQL;
 import com.prind.ctf.database.SQLite;
 import com.prind.ctf.game.Game;
 import com.prind.ctf.game.event.GameEvent;
-import com.prind.ctf.game.manager.GameManager;
+import com.prind.ctf.game.GameManager;
 import com.prind.ctf.menus.listeners.KitSelectionMenuListener;
 import com.prind.ctf.stats.StatsManager;
 import com.prind.ctf.util.ConfigUtil;

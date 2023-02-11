@@ -1,17 +1,12 @@
 package com.prind.ctf.commands.cmds.game;
 
-import cloud.commandframework.annotations.Argument;
 import cloud.commandframework.annotations.CommandMethod;
 import com.prind.ctf.CTF;
 import com.prind.ctf.game.Game;
-import com.prind.ctf.game.manager.GameManager;
+import com.prind.ctf.game.GameManager;
 import com.prind.ctf.util.ChatUtil;
-import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import org.checkerframework.checker.nullness.qual.NonNull;
-
-import java.util.Arrays;
 
 public class GameListCommand {
 

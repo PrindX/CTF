@@ -1,4 +1,4 @@
-package com.prind.ctf.game.manager;
+package com.prind.ctf.game;
 
 import com.prind.ctf.CTF;
 import com.prind.ctf.game.Game;

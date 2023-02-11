@@ -9,7 +9,7 @@ public class KitManager {
 
     private static final ArrayList<Kit> kits = new ArrayList<>();
 
-    static {
+    public KitManager() {
         kits.addAll(List.of(
                 new BasicKit()
         ));

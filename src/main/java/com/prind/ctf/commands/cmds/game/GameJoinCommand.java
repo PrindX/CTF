@@ -4,10 +4,8 @@ import cloud.commandframework.annotations.Argument;
 import cloud.commandframework.annotations.CommandMethod;
 import com.prind.ctf.CTF;
 import com.prind.ctf.game.Game;
-import com.prind.ctf.game.manager.GameManager;
-import org.bukkit.command.CommandSender;
+import com.prind.ctf.game.GameManager;
 import org.bukkit.entity.Player;
-import org.checkerframework.checker.nullness.qual.NonNull;
 
 public class GameJoinCommand {
 

@@ -4,27 +4,21 @@ import com.onarandombox.MultiverseCore.api.MVWorldManager;
 import com.prind.ctf.CTF;
 import com.prind.ctf.game.Game;
 import com.prind.ctf.game.Team;
-import com.prind.ctf.game.manager.GameManager;
-import com.prind.ctf.kits.utils.ItemBuilder;
+import com.prind.ctf.game.GameManager;
 import com.prind.ctf.util.ChatUtil;
-import de.tr7zw.changeme.nbtapi.NBT;
 import de.tr7zw.changeme.nbtapi.NBTBlock;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.block.Banner;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 public class GameEvent implements Listener {
 

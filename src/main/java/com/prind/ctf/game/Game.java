@@ -94,6 +94,36 @@ public class Game {
         }
     }
 
+    public void joinGame(Player player) {
+        if (isState(GameState.LOBBY) || isState(GameState.STARTING)) {
+            if (players.size() >= maxPlayers) {
+                ChatUtil.message(player, "&cGame is full, Cannot Join!");
+                return;
+            }
+
+            if (players.contains(player)) {
+                ChatUtil.message(player, "&cYou must leave the current game to join another!");
+                return;
+            }
+
+            players.add(player);
+            sendToWaiting(player);
+
+            // Replace inventory with waiting area items.
+
+            if (players.size() >= minPlayers && !isState(GameState.STARTING)) {
+                setGameState(GameState.STARTING);
+                CountdownTask countdownTask = new CountdownTask(this);
+                countdownTask.runTaskTimer(CTF.getInstance(), 0, 20);
+            } else {
+                int needed = minPlayers - players.size();
+                player.sendActionBar(ChatUtil.translate("&e" + needed + " players is needed."));
+            }
+
+            CTF.getInstance().getGameManager().setGame(player, this);
+        }
+    }
+
     public void sendToWaiting(Player player) {
         MVWorldManager worldManager = CTF.getInstance().getMultiverseCore().getMVWorldManager();
 
@@ -124,37 +154,6 @@ public class Game {
             double z = gameConfig.getDouble("games." + getDisplayName() + ".teams." + team.getId() + ".z");
 
             team.sendPlayers(world, x, y, z);
-        }
-    }
-
-    public void joinGame(Player player) {
-        if (isState(GameState.LOBBY) || isState(GameState.STARTING)) {
-            if (players.size() >= maxPlayers) {
-                ChatUtil.message(player, "&cGame is full, Cannot Join!");
-                return;
-            }
-
-            if (players.contains(player)) {
-                ChatUtil.message(player, "&cYou must leave the current game to join another!");
-                return;
-            }
-
-            players.add(player);
-            sendToWaiting(player);
-
-            // Replace inventory with waiting area items.
-            // Teleport players to waiting area.
-
-            if (players.size() >= minPlayers && !isState(GameState.STARTING)) {
-                setGameState(GameState.STARTING);
-                CountdownTask countdownTask = new CountdownTask(this);
-                countdownTask.runTaskTimer(CTF.getInstance(), 0, 20);
-            } else {
-                int needed = minPlayers - players.size();
-                player.sendActionBar(ChatUtil.translate("&e" + needed + " players is needed."));
-            }
-
-            CTF.getInstance().getGameManager().setGame(player, this);
         }
     }
 
