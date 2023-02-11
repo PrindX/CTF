@@ -1,14 +1,17 @@
 package com.prind.ctf.game.tasks;
 
+import com.prind.ctf.CTF;
 import com.prind.ctf.game.Game;
 import com.prind.ctf.game.Team;
 import com.prind.ctf.game.enums.GameState;
 import com.prind.ctf.util.ChatUtil;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class GameTask extends BukkitRunnable {
 
     private final Game game;
+    private final FileConfiguration config = CTF.getInstance().getConfig();
 
     public GameTask(Game game) {
         this.game = game;
@@ -16,7 +19,7 @@ public class GameTask extends BukkitRunnable {
 
     @Override
     public void run() {
-        if (!game.isState(GameState.ACTIVE)) {
+        if (!game.isState(GameState.ACTIVE) || game.getPlayers().isEmpty()) {
             cancel();
             return;
         }
@@ -28,12 +31,8 @@ public class GameTask extends BukkitRunnable {
                 if (!teamOne.hasWon()) return;
                 game.endGame();
 
-                teamOne.getPlayers().forEach(player -> {
-                    ChatUtil.message(player, "&aYou're team has won!!");
-                });
-                teamTwo.getPlayers().forEach(player -> {
-                    ChatUtil.message(player, "&cYou're team has lost!!");
-                });
+                gameOverMessage(teamOne, config.getString("messages.team-won"));
+                gameOverMessage(teamTwo, config.getString("messages.team-lost"));
                 cancel();
 
             } else if (teamTwo.getFlags() > teamOne.getFlags()) {
@@ -41,12 +40,8 @@ public class GameTask extends BukkitRunnable {
 
                 game.endGame();
 
-                teamTwo.getPlayers().forEach(player -> {
-                    ChatUtil.message(player, "&aYou're team has won!!");
-                });
-                teamOne.getPlayers().forEach(player -> {
-                    ChatUtil.message(player, "&cYou're team has lost!!");
-                });
+                gameOverMessage(teamTwo, config.getString("messages.team-won"));
+                gameOverMessage(teamOne, config.getString("messages.team-lost"));
                 cancel();
 
             }
@@ -55,5 +50,11 @@ public class GameTask extends BukkitRunnable {
         Powers ups
          */
 
+    }
+
+    private void gameOverMessage(Team team, String s) {
+        team.getPlayers().forEach(player -> {
+            ChatUtil.message(player, s);
+        });
     }
 }

@@ -13,7 +13,7 @@ public class GameListCommand {
     private GameManager gameManager = CTF.getInstance().getGameManager();
     private FileConfiguration config = CTF.getInstance().getConfig();
 
-    @CommandMethod("game list")
+    @CommandMethod("ctf list")
     public void onJoinCommand(Player player) {
         for (String s : config.getStringList("messages.game-display")) {
             if (!s.startsWith("{GAME-DISPLAY}")) {

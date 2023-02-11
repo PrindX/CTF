@@ -18,7 +18,7 @@ public class GameTestCommand {
     private GameManager gameManager = CTF.getInstance().getGameManager();
     private final FileConfiguration gameConfig = CTF.getInstance().getGameConfig().getConfiguration();
 
-    @CommandMethod("game test <game>")
+    @CommandMethod("ctf test <game>")
     public void onTestCommand(Player player, @Argument("game")String name) {
         Game game = gameManager.getGameByName(name);
 

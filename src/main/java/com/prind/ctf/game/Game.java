@@ -53,10 +53,10 @@ public class Game {
         if (!isState(GameState.STARTING)) return;
         setGameState(GameState.ACTIVE);
 
-        GameTask gameTask = new GameTask(this);
         assignTeams();
         sendToArena();
 
+        GameTask gameTask = new GameTask(this);
         gameTask.runTaskTimer(CTF.getInstance(), 0, 20);
     }
 
@@ -66,8 +66,10 @@ public class Game {
         }
         setGameState(GameState.LOBBY);
         sendToSpawn();
-        teams.clear();
-        players.clear();
+
+        for (Player player : players) {
+            players.remove(player);
+        }
 
         // Add stats to player
     }
@@ -84,7 +86,7 @@ public class Game {
             int teamId = (i % 2) + 1;
             Team team = getTeamById(teamId);
 
-            if (team.getPlayers().contains(players.get(i))) continue;
+            if (team.getPlayers().contains(players.get(i))) return;
             team.addPlayer(players.get(i));
 
             int rand = ThreadLocalRandom.current().nextInt(team.getPlayers().size());
@@ -97,27 +99,28 @@ public class Game {
     public void joinGame(Player player) {
         if (isState(GameState.LOBBY) || isState(GameState.STARTING)) {
             if (players.size() >= maxPlayers) {
-                ChatUtil.message(player, "&cGame is full, Cannot Join!");
+                ChatUtil.message(player, config.getString("messages.game-is-full"));
                 return;
             }
 
             if (players.contains(player)) {
-                ChatUtil.message(player, "&cYou must leave the current game to join another!");
+                ChatUtil.message(player, config.getString("messages.cannot-join-game"));
                 return;
             }
 
             players.add(player);
             sendToWaiting(player);
 
-            // Replace inventory with waiting area items.
-
             if (players.size() >= minPlayers && !isState(GameState.STARTING)) {
                 setGameState(GameState.STARTING);
                 CountdownTask countdownTask = new CountdownTask(this);
                 countdownTask.runTaskTimer(CTF.getInstance(), 0, 20);
             } else {
-                int needed = minPlayers - players.size();
-                player.sendActionBar(ChatUtil.translate("&e" + needed + " players is needed."));
+                int players_needed = minPlayers - players.size();
+                players.forEach(p -> {
+                    p.sendActionBar(ChatUtil.translate(config.getString("messages.players-needed")
+                            .replace("{amount}", String.valueOf(players_needed))));
+                });
             }
 
             CTF.getInstance().getGameManager().setGame(player, this);

@@ -11,6 +11,12 @@ locations:
     z: 100
 
 messages:
+  team-won: "&aYou're team has won."
+  team-lost: "&cYou're team has lost."
+
+  players-needed: "&e{amount} more players is needed." ## action bar
+  game-is-full: "&cGame is full, Cannot Join!"
+  cannot-join-game: "&cLeave current game before joining a new game."
   countdown: "&aGame starting in %time%"
   king-selected: "&aYou are the &6&lKing"
   game-display:

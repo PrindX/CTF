@@ -3,8 +3,10 @@ package com.prind.ctf.game;
 import com.prind.ctf.CTF;
 import com.prind.ctf.game.Game;
 import com.prind.ctf.game.enums.GameState;
+import com.prind.ctf.game.tasks.CountdownTask;
 import com.prind.ctf.util.ChatUtil;
 import lombok.Getter;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -14,7 +16,8 @@ import java.util.Set;
 @Getter
 public class GameManager {
 
-    private final CTF instance;
+    private final CTF instance;private final FileConfiguration config = CTF.getInstance().getConfig();
+
     private final HashSet<Game> games;
     private final HashMap<Player, Game> gameMap;
 
@@ -34,6 +37,39 @@ public class GameManager {
 
         games.add(game);
         ChatUtil.log("&aGame: " + game.getDisplayName() + " has been registered.");
+    }
+
+    public void joinGame(Game game, Player player) {
+        if (game.isState(GameState.LOBBY) || game.isState(GameState.STARTING)) {
+
+            int current_size = game.getPlayers().size();
+            if (current_size >= game.getMaxPlayers()) {
+                ChatUtil.message(player, config.getString("messages.game-is-full"));
+                return;
+            }
+
+            if (game.getPlayers().contains(player)) {
+                ChatUtil.message(player, config.getString("messages.cannot-join-game"));
+                return;
+            }
+
+            game.getPlayers().add(player);
+            game.sendToWaiting(player);
+
+            if (current_size >= game.getMinPlayers() && !game.isState(GameState.STARTING)) {
+                game.setGameState(GameState.STARTING);
+                CountdownTask countdownTask = new CountdownTask(game);
+                countdownTask.runTaskTimer(CTF.getInstance(), 0, 20);
+            } else {
+                int players_needed = game.getMinPlayers() - current_size;
+                game.getPlayers().forEach(p -> {
+                    p.sendActionBar(ChatUtil.translate(config.getString("messages.players-needed")
+                            .replace("{amount}", String.valueOf(players_needed))));
+                });
+            }
+
+            setGame(player, game);
+        }
     }
 
     public Game getGameByName(String gameName) {
