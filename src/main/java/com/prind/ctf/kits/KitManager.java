@@ -9,11 +9,12 @@ public class KitManager {
 
     private static final ArrayList<Kit> kits = new ArrayList<>();
 
-    public KitManager() {
+    static {
         kits.addAll(List.of(
                 new BasicKit()
         ));
     }
+
 
     public static ArrayList<Kit> getKits() {
         return kits;

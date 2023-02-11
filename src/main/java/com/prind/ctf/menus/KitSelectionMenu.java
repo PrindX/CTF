@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class KitSelectionMenu implements InventoryHolder {
 
-    private Inventory inventory = Bukkit.createInventory(this, 6 * 9, "Kit Selection");
+    private Inventory inventory = Bukkit.createInventory(this, 3 * 9, "Kit Selection");
     private Player player;
     private PlayerStats playerStats;
 
