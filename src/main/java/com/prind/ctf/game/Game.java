@@ -54,10 +54,10 @@ public class Game {
         setGameState(GameState.ACTIVE);
 
         GameTask gameTask = new GameTask(this);
-        gameTask.runTaskTimer(CTF.getInstance(), 0, 20);
-
         assignTeams();
         sendToArena();
+
+        gameTask.runTaskTimer(CTF.getInstance(), 0, 20);
     }
 
     public void endGame() {

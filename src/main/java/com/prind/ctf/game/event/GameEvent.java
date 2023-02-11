@@ -1,13 +1,16 @@
 package com.prind.ctf.game.event;
 
+import com.onarandombox.MultiverseCore.api.MVWorldManager;
 import com.prind.ctf.CTF;
 import com.prind.ctf.game.Game;
 import com.prind.ctf.game.Team;
 import com.prind.ctf.game.manager.GameManager;
 import com.prind.ctf.kits.utils.ItemBuilder;
+import com.prind.ctf.util.ChatUtil;
 import de.tr7zw.changeme.nbtapi.NBT;
 import de.tr7zw.changeme.nbtapi.NBTBlock;
 import de.tr7zw.changeme.nbtapi.NBTItem;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Banner;
 import org.bukkit.block.Block;
@@ -16,6 +19,7 @@ import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -35,11 +39,28 @@ public class GameEvent implements Listener {
             Team teamOne = game.getTeamById(1);
             Team teamTwo = game.getTeamById(2);
 
+            if (!event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) return;
             ItemStack hand = player.getInventory().getItemInMainHand();
-            if (teamOne.getPlayers().contains(player)) {
+            NBTBlock nbtBlock = new NBTBlock(event.getClickedBlock());
+            switch (nbtBlock.getData().getString("Team")) {
+                case "one":
+                    event.setCancelled(true);
+                    if (teamTwo.getPlayers().contains(player)) {
+                        return;
+                    }
 
-            } else if (teamTwo.getPlayers().contains(player)) {
+                    if (!hand.equals(getFlagItem("two", Material.RED_BANNER))) {
+                        System.out.println("testomg ");
+                        return;
+                    }
 
+                    testFlagPositions(game);
+                    ChatUtil.message(player, "You captured a flag.");
+                    hand.setAmount(hand.getAmount() - 1);
+
+                    break;
+                default:
+                    break;
             }
 
         }
@@ -49,7 +70,6 @@ public class GameEvent implements Listener {
     public void onBreak(BlockBreakEvent event) {
         Player player = event.getPlayer();
         for (Game game : gameManager.getGames()) {
-            System.out.println("awdad");
             if (!game.getPlayers().contains(player)) return;
             Team teamOne = game.getTeamById(1);
             Team teamTwo = game.getTeamById(2);
@@ -57,37 +77,65 @@ public class GameEvent implements Listener {
             Block block = event.getBlock();
             NBTBlock nbtBlock = new NBTBlock(block);
             if (!nbtBlock.getData().hasTag("Team")) {
-                System.out.println("HEY HEY");
                 return;
             }
 
-            if (teamOne.getPlayers().contains(player)) {
-                System.out.println("1");
-                if (nbtBlock.getData().getString("Team").equalsIgnoreCase("one")) {
+
+            switch (nbtBlock.getData().getString("Team")) {
+                case "one":
+                    if (teamOne.getPlayers().contains(player)) {
+                        event.setCancelled(true);
+                        return;
+                    }
+
+                    player.getInventory().addItem(event.getBlock().getDrops().toArray(new ItemStack[0]));
+                    event.getBlock().getDrops().clear();
+
+                    break;
+                case "two":
+                    if (teamTwo.getPlayers().contains(player)) {
+                        event.setCancelled(true);
+                        return;
+                    }
                     event.setCancelled(true);
-                    System.out.println("2");
-                    return;
-                }
+                    player.getInventory().addItem(getFlagItem("two", event.getBlock().getType()));
+                    event.getBlock().setType(Material.AIR);
 
 
-            } else if (teamTwo.getPlayers().contains(player)) {
+                    break;
+                default:
 
+                    break;
             }
 
         }
     }
 
-    public void checkBlock() {
+    public void testFlagPositions(Game game) {
+        for (Team team : game.getTeams()) {
+            MVWorldManager worldManager = CTF.getInstance().getMultiverseCore().getMVWorldManager();
+            String world = gameConfig.getString("games." + game.getDisplayName() + ".teams." + team.getId() + ".world");
+            double x = gameConfig.getDouble("games." + game.getDisplayName() + ".teams." + team.getId() + ".flag.x");
+            double y = gameConfig.getDouble("games." + game.getDisplayName() + ".teams." + team.getId() + ".flag.y");
+            double z = gameConfig.getDouble("games." + game.getDisplayName() + ".teams." + team.getId() +".flag.z");
 
+            Location loc = new Location(worldManager.getMVWorld(world).getCBWorld(), x, y, z);
+            NBTBlock block = new NBTBlock(loc.getBlock());
+            if (team.getId() == 1) {
+                loc.getBlock().setType(Material.BLUE_BANNER);
+                block.getData().setString("Team", "one");
+            } else {
+                loc.getBlock().setType(Material.RED_BANNER);
+                block.getData().setString("Team", "two");
+            }
+        }
     }
 
-    public ItemStack checkItem(String team, String banner) {
-        ItemStack itemStack = new ItemStack(Material.matchMaterial(banner));
-        if (itemStack.getType() != Material.LEGACY_BANNER) return null;
-
+    public ItemStack getFlagItem(String team, Material material) {
+        ItemStack itemStack = new ItemStack(material);
         NBTItem item = new NBTItem(itemStack);
-        if (item.getString("Team").equalsIgnoreCase(team))
 
+        item.setString("Team", team);
         item.mergeCustomNBT(itemStack);
 
         return itemStack;
