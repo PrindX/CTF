@@ -38,8 +38,8 @@ public class WizardKit implements Kit{
         inv.setArmorContents(getArmorContents());
 
         inv.setItem(0, ItemBuilder.getCustomItem(
-                Material.DIAMOND_SWORD,
-                ItemEnum.SWORD_OF_DEATH,
+                Material.STICK,
+                ItemEnum.WIZARD_WAND,
                 "Wizard Wand",
                 "Use this wand to zap everyone you like",
                 "Zapper",
