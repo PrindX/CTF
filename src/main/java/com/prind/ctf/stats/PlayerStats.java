@@ -1,6 +1,6 @@
 package com.prind.ctf.stats;
 
-import com.prind.ctf.kits.BasicKit;
+import com.prind.ctf.kits.StrikerKit;
 import com.prind.ctf.kits.Kit;
 import com.prind.ctf.kits.KitManager;
 import com.prind.ctf.kits.enums.KitEnum;
@@ -22,8 +22,8 @@ public class PlayerStats {
 
   public PlayerStats(UUID uuid) {
     this.uuid = uuid;
-    this.selectedKit = KitManager.getKitByEnum(KitEnum.BASIC_KIT);
-    this.unlockedKits.add(new BasicKit());
+    this.selectedKit = KitManager.getKitByEnum(KitEnum.STRIKER_KIT);
+    this.unlockedKits.add(new StrikerKit());
   }
 
   public UUID getUuid() {

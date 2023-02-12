@@ -9,25 +9,25 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class BasicKit implements Kit {
+public class StrikerKit implements Kit {
     @Override
     public ItemStack getIcon() {
         return ItemBuilder.getKitIcon(
                 Material.DIAMOND_SWORD,
-                KitEnum.BASIC_KIT,
+                KitEnum.STRIKER_KIT,
                 getName(),
-                "Get a quick start in the arena"
+                "Start striking your enemies in the arena"
         );
     }
 
     @Override
     public String getName() {
-        return "Basic Kit";
+        return "Striker Kit";
     }
 
     @Override
     public KitEnum getKitEnum() {
-        return KitEnum.BASIC_KIT;
+        return KitEnum.STRIKER_KIT;
     }
 
     @Override
@@ -43,7 +43,7 @@ public class BasicKit implements Kit {
                 "Sword Of Death",
                 "Slay your enemies\nand get a reward\nfor each kill",
                 "Strike The Rage",
-                "Spawns a lighting bolt near every\nplayer and damages them\nin a 4 block radius"
+                "Strike every player near you\nin a 4 block radius and damage them"
         ));
         inv.setItem(1, new ItemStack(Material.BOW));
         inv.setItem(2, new ItemStack(Material.ARROW, 16));
