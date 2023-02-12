@@ -49,7 +49,7 @@ public class BasicKit implements Kit {
                 "Sword Of Death",
                 "Slay your enemies\nand get a reward\nfor each kill",
                 "Strike The Rage",
-                "Spawns a lighting bolt where you look at\nand kill everyone in\na 5 block radius"
+                "Spawns a lighting bolt where you look at\nand damage everyone in\na 4 block radius"
         ));
         inv.setItem(1, new ItemStack(Material.BOW));
         inv.setItem(2, new ItemStack(Material.ARROW, 16));
