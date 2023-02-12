@@ -9,25 +9,25 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class WizardKit implements Kit{
+public class WarperKit implements Kit {
     @Override
     public ItemStack getIcon() {
         return ItemBuilder.getKitIcon(
-                Material.STICK,
-                KitEnum.WIZARD_KIT,
+                Material.IRON_SWORD,
+                KitEnum.WARPER_KIT,
                 getName(),
-                "Become the wizard and start zapping everyone"
+                "Get to the other side of the map in a blink"
         );
     }
 
     @Override
     public String getName() {
-        return "Wizard Kit";
+        return "Warper Kit";
     }
 
     @Override
     public KitEnum getKitEnum() {
-        return KitEnum.WIZARD_KIT;
+        return KitEnum.WARPER_KIT;
     }
 
     @Override
@@ -39,13 +39,13 @@ public class WizardKit implements Kit{
 
         inv.setItem(0, ItemBuilder.getCustomItem(
                 Material.DIAMOND_SWORD,
-                ItemEnum.SWORD_OF_DEATH,
-                "Wizard Wand",
-                "Use this wand to zap everyone you like",
-                "Zapper",
-                "Shoots a fireball where you are looking"
+                ItemEnum.WARPER_SWORD,
+                "Warper Sword",
+                "A Good weapon to trick your enemies",
+                "Blink",
+                "Teleport 4 blocks forward where you are looking"
         ));
-        ItemStack sword = new ItemStack(Material.IRON_SWORD);
+        ItemStack sword = new ItemStack(Material.IRON_AXE);
         ItemMeta metaSword = sword.getItemMeta();
         metaSword.setUnbreakable(true);
         sword.setItemMeta(metaSword);
@@ -54,10 +54,10 @@ public class WizardKit implements Kit{
     }
 
     private ItemStack[] getArmorContents() {
-        ItemStack boots = new ItemStack(Material.IRON_BOOTS);
-        ItemStack leggings = new ItemStack(Material.IRON_LEGGINGS);
+        ItemStack boots = new ItemStack(Material.DIAMOND_BOOTS);
+        ItemStack leggings = new ItemStack(Material.DIAMOND_LEGGINGS);
         ItemStack chestplate = new ItemStack(Material.IRON_CHESTPLATE);
-        ItemStack helmet = new ItemStack(Material.LEATHER_HELMET);
+        ItemStack helmet = new ItemStack(Material.IRON_HELMET);
 
         ItemMeta bootsMeta = boots.getItemMeta();
         bootsMeta.setUnbreakable(true);
