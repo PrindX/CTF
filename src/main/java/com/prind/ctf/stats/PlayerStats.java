@@ -4,6 +4,7 @@ import com.prind.ctf.kits.impl.StrikerKit;
 import com.prind.ctf.kits.Kit;
 import com.prind.ctf.kits.KitManager;
 import com.prind.ctf.kits.enums.KitEnum;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -17,12 +18,11 @@ public class PlayerStats {
   private int kills;
   private int wins;
 
-  private Kit selectedKit;
+  private Kit selectedKit = null;
   private Set<Kit> unlockedKits = new HashSet<>();
 
   public PlayerStats(UUID uuid) {
     this.uuid = uuid;
-    this.selectedKit = KitManager.getKitByEnum(KitEnum.STRIKER_KIT);
     this.unlockedKits.add(new StrikerKit());
   }
 

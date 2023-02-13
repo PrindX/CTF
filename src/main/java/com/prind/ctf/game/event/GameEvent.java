@@ -5,6 +5,9 @@ import com.prind.ctf.CTF;
 import com.prind.ctf.game.Game;
 import com.prind.ctf.game.Team;
 import com.prind.ctf.game.GameManager;
+import com.prind.ctf.game.enums.GameState;
+import com.prind.ctf.menus.KitSelectionMenu;
+import com.prind.ctf.stats.PlayerStats;
 import com.prind.ctf.util.ChatUtil;
 import de.tr7zw.changeme.nbtapi.NBTBlock;
 import de.tr7zw.changeme.nbtapi.NBTItem;
@@ -17,6 +20,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -135,5 +139,33 @@ public class GameEvent implements Listener {
         item.mergeCustomNBT(itemStack);
 
         return itemStack;
+    }
+
+    @EventHandler
+    public void PlayerCloseInventory(InventoryCloseEvent event) {
+        if (!(event.getInventory().getHolder() instanceof KitSelectionMenu)) return;
+        if (!(event.getPlayer() instanceof Player player)) return;
+
+        for (Game game : gameManager.getGames()) {
+            if (!game.getPlayers().contains(player)) return;
+
+            GameState gameState = game.getGameState();
+
+            boolean shouldOpenAgain;
+
+            switch (gameState) {
+                case LOBBY, STARTING -> shouldOpenAgain = shouldOpenKitSelectionMenu(player);
+                default -> shouldOpenAgain = false;
+            }
+
+            if (shouldOpenAgain)
+                new KitSelectionMenu(player);
+        }
+    }
+
+    private boolean shouldOpenKitSelectionMenu(Player player) {
+        PlayerStats stats = CTF.getInstance().getStatsManager().get(player.getUniqueId());
+
+        return stats.getSelectedKit() == null;
     }
 }
