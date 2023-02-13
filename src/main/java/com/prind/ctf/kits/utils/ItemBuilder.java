@@ -98,6 +98,8 @@ public class ItemBuilder {
         NBTItem nbtItem = new NBTItem(item);
         ItemEnum itemEnum = nbtItem.getEnum("item-id", ItemEnum.class);
 
-        return itemEnum != null && itemEnum == customItem;
+        if (itemEnum == null) return false;
+        if (itemEnum != customItem) return false;
+        return true;
     }
 }
