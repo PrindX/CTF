@@ -23,6 +23,7 @@ import cloud.commandframework.paper.PaperCommandManager;
 import com.prind.ctf.CTF;
 import com.prind.ctf.commands.cmds.*;
 import com.prind.ctf.commands.cmds.game.GameJoinCommand;
+import com.prind.ctf.commands.cmds.game.GameLeaveCommand;
 import com.prind.ctf.commands.cmds.game.GameListCommand;
 import com.prind.ctf.commands.cmds.game.GameTestCommand;
 import net.kyori.adventure.audience.Audience;
@@ -133,6 +134,7 @@ public class CommandManager {
     this.annotationParser.parse(new GameTestCommand());
     this.annotationParser.parse(new KitCommand());
     this.annotationParser.parse(new KitGetCommand());
+    this.annotationParser.parse(new GameLeaveCommand());
     // Parse all @CommandContainer-annotated classes
     try {
       this.annotationParser.parseContainers();

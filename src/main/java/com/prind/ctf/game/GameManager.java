@@ -72,6 +72,16 @@ public class GameManager {
         }
     }
 
+    public Game getGameByPlayer(Player player) {
+        for (Game game : games) {
+            if (game.getPlayers().contains(player)) {
+                return game;
+            }
+        }
+
+        return null;
+    }
+
     public Game getGameByName(String gameName) {
         for (Game game : games) {
             if (game.getDisplayName().equalsIgnoreCase(gameName)) {

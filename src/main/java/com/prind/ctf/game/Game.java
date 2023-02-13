@@ -7,6 +7,7 @@ import com.prind.ctf.CTF;
 import com.prind.ctf.game.enums.GameState;
 import com.prind.ctf.game.tasks.CountdownTask;
 import com.prind.ctf.game.tasks.GameTask;
+import com.prind.ctf.menus.KitSelectionMenu;
 import com.prind.ctf.util.ChatUtil;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -54,7 +55,10 @@ public class Game {
         setGameState(GameState.ACTIVE);
 
         assignTeams();
-        sendToArena();
+        sendTeamToArena();
+        for (Player player : players) {
+            new KitSelectionMenu(player);
+        }
 
         GameTask gameTask = new GameTask(this);
         gameTask.runTaskTimer(CTF.getInstance(), 0, 20);
@@ -65,7 +69,7 @@ public class Game {
             return;
         }
         setGameState(GameState.LOBBY);
-        sendToSpawn();
+        sendTeamToSpawn();
 
         for (Player player : players) {
             players.remove(player);
@@ -93,6 +97,17 @@ public class Game {
             Player player = team.getPlayers().get(rand);
             player.sendActionBar(ChatUtil.translate(config.getString("messages.king-selected")));
             team.addKing(player);
+        }
+    }
+
+    public void leaveGame(Player player) {
+        if (!players.contains(player)) return;
+
+        players.remove(player);
+        sendToSpawn(player);
+
+        if (players.size() < minPlayers) {
+            endGame();
         }
     }
 
@@ -138,7 +153,17 @@ public class Game {
         player.teleport(new Location(worldManager.getMVWorld(world).getCBWorld(), x, y, z));
     }
 
-    public void sendToSpawn() {
+    public void sendToSpawn(Player player) {
+        String world = config.getString("locations.spawn.world");
+        double x = config.getDouble("locations.spawn.x");
+        double y = config.getDouble("locations.spawn.y");
+        double z = config.getDouble("locations.spawn.z");
+
+        if (world == null) return;
+        player.teleport(new Location(Bukkit.getWorld(world), x, y, z));
+    }
+
+    public void sendTeamToSpawn() {
         for (Team team : teams) {
             String world = config.getString("locations.spawn.world");
             double x = config.getDouble("locations.spawn.x");
@@ -149,7 +174,7 @@ public class Game {
         }
     }
 
-    public void sendToArena() {
+    public void sendTeamToArena() {
         for (Team team : teams) {
             String world = gameConfig.getString("games." + getDisplayName() + ".teams." + team.getId() + ".world");
             double x = gameConfig.getDouble("games." + getDisplayName() + ".teams." + team.getId() + ".x");
