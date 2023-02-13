@@ -65,6 +65,7 @@ public class Game {
         if (!isState(GameState.ACTIVE)) {
             return;
         }
+
         setGameState(GameState.LOBBY);
         sendTeamToSpawn();
 
