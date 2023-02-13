@@ -56,9 +56,8 @@ public class Game {
 
         assignTeams();
         sendTeamToArena();
-        for (Player player : players) {
-            new KitSelectionMenu(player);
-        }
+
+        players.forEach(p -> new KitSelectionMenu(p));
 
         GameTask gameTask = new GameTask(this);
         gameTask.runTaskTimer(CTF.getInstance(), 0, 20);
@@ -68,12 +67,11 @@ public class Game {
         if (!isState(GameState.ACTIVE)) {
             return;
         }
+
         setGameState(GameState.LOBBY);
         sendTeamToSpawn();
 
-        for (Player player : players) {
-            players.remove(player);
-        }
+        players.clear();
 
         // Add stats to player
     }
