@@ -1,6 +1,5 @@
 package com.prind.ctf.commands.cmds.game;
 
-import cloud.commandframework.annotations.Argument;
 import cloud.commandframework.annotations.CommandMethod;
 import com.prind.ctf.CTF;
 import com.prind.ctf.game.Game;
@@ -13,7 +12,7 @@ public class GameLeaveCommand {
     private GameManager gameManager = CTF.getInstance().getGameManager();
 
     @CommandMethod("ctf leave")
-    public void onJoinCommand(Player player) {
+    public void onLeaveCommand(Player player) {
         Game game = gameManager.getGameByPlayer(player);
         if (game == null) {
             ChatUtil.message(player, "&cYou are not in a game!");

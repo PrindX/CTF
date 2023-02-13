@@ -56,9 +56,6 @@ public class Game {
 
         assignTeams();
         sendTeamToArena();
-        for (Player player : players) {
-            new KitSelectionMenu(player);
-        }
 
         GameTask gameTask = new GameTask(this);
         gameTask.runTaskTimer(CTF.getInstance(), 0, 20);

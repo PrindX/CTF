@@ -48,12 +48,28 @@ public class GameEvent implements Listener {
                     }
 
                     if (!hand.equals(getFlagItem("two", Material.RED_BANNER))) {
-                        System.out.println("testomg ");
                         event.setCancelled(true);
                         return;
                     }
 
                     teamOne.addFlags(1);
+                    testFlagPositions(game);
+                    ChatUtil.message(player, "You captured a flag.");
+                    hand.setAmount(hand.getAmount() - 1);
+
+                    break;
+                case "two":
+                    event.setCancelled(true);
+                    if (teamOne.getPlayers().contains(player)) {
+                        return;
+                    }
+
+                    if (!hand.equals(getFlagItem("one", Material.BLUE_BANNER))) {
+                        event.setCancelled(true);
+                        return;
+                    }
+
+                    teamTwo.addFlags(1);
                     testFlagPositions(game);
                     ChatUtil.message(player, "You captured a flag.");
                     hand.setAmount(hand.getAmount() - 1);
