@@ -1,5 +1,6 @@
-package com.prind.ctf.kits;
+package com.prind.ctf.kits.impl;
 
+import com.prind.ctf.kits.Kit;
 import com.prind.ctf.kits.enums.ItemEnum;
 import com.prind.ctf.kits.enums.KitEnum;
 import com.prind.ctf.kits.utils.ItemBuilder;
@@ -9,25 +10,25 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class StrikerKit implements Kit {
+public class WarperKit implements Kit {
     @Override
     public ItemStack getIcon() {
         return ItemBuilder.getKitIcon(
-                Material.DIAMOND_SWORD,
-                KitEnum.STRIKER_KIT,
+                Material.IRON_SWORD,
+                KitEnum.WARPER_KIT,
                 getName(),
-                "Start striking your enemies in the arena"
+                "Get to the other side of the map in a blink"
         );
     }
 
     @Override
     public String getName() {
-        return "Striker Kit";
+        return "Warper Kit";
     }
 
     @Override
     public KitEnum getKitEnum() {
-        return KitEnum.STRIKER_KIT;
+        return KitEnum.WARPER_KIT;
     }
 
     @Override
@@ -39,20 +40,23 @@ public class StrikerKit implements Kit {
 
         inv.setItem(0, ItemBuilder.getCustomItem(
                 Material.DIAMOND_SWORD,
-                ItemEnum.SWORD_OF_DEATH,
-                "Sword Of Death",
-                "Slay your enemies\nand get a reward\nfor each kill",
-                "Strike The Rage",
-                "Strike every player near you\nin a 4 block radius and damage them"
+                ItemEnum.WARPER_SWORD,
+                "Warper Sword",
+                "A Good weapon to trick your enemies",
+                "Blink",
+                "Teleport 4 blocks forward where you are looking"
         ));
-        inv.setItem(1, new ItemStack(Material.BOW));
-        inv.setItem(2, new ItemStack(Material.ARROW, 16));
-        inv.setItem(3, new ItemStack(Material.GOLDEN_APPLE, 6));
+        ItemStack sword = new ItemStack(Material.IRON_AXE);
+        ItemMeta metaSword = sword.getItemMeta();
+        metaSword.setUnbreakable(true);
+        sword.setItemMeta(metaSword);
+        inv.setItem(1, sword);
+        inv.setItem(2, new ItemStack(Material.GOLDEN_APPLE, 6));
     }
 
     private ItemStack[] getArmorContents() {
-        ItemStack boots = new ItemStack(Material.IRON_BOOTS);
-        ItemStack leggings = new ItemStack(Material.IRON_LEGGINGS);
+        ItemStack boots = new ItemStack(Material.DIAMOND_BOOTS);
+        ItemStack leggings = new ItemStack(Material.DIAMOND_LEGGINGS);
         ItemStack chestplate = new ItemStack(Material.IRON_CHESTPLATE);
         ItemStack helmet = new ItemStack(Material.IRON_HELMET);
 
@@ -73,10 +77,10 @@ public class StrikerKit implements Kit {
         helmet.setItemMeta(helmetMeta);
 
         return new ItemStack[] {
-          boots,
-          leggings,
-          chestplate,
-          helmet
+                boots,
+                leggings,
+                chestplate,
+                helmet
         };
     }
 }

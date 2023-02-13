@@ -1,6 +1,9 @@
 package com.prind.ctf.kits;
 
 import com.prind.ctf.kits.enums.KitEnum;
+import com.prind.ctf.kits.impl.StrikerKit;
+import com.prind.ctf.kits.impl.WarperKit;
+import com.prind.ctf.kits.impl.WizardKit;
 
 import java.util.ArrayList;
 import java.util.List;

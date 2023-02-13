@@ -1,6 +1,6 @@
 package com.prind.ctf.stats;
 
-import com.prind.ctf.kits.StrikerKit;
+import com.prind.ctf.kits.impl.StrikerKit;
 import com.prind.ctf.kits.Kit;
 import com.prind.ctf.kits.KitManager;
 import com.prind.ctf.kits.enums.KitEnum;

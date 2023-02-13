@@ -27,6 +27,6 @@ public class KitSelectionMenuListener implements Listener {
     @EventHandler
     public void onInventoryClose(InventoryCloseEvent event) {
         Player player = (Player) event.getPlayer();
-        
+
     }
 }
