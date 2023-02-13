@@ -11,6 +11,7 @@ import com.prind.ctf.stats.PlayerStats;
 import com.prind.ctf.util.ChatUtil;
 import de.tr7zw.changeme.nbtapi.NBTBlock;
 import de.tr7zw.changeme.nbtapi.NBTItem;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -147,25 +148,12 @@ public class GameEvent implements Listener {
         if (!(event.getPlayer() instanceof Player player)) return;
 
         for (Game game : gameManager.getGames()) {
-            if (!game.getPlayers().contains(player)) return;
+            if (!game.getPlayers().contains(player)) continue;
 
-            GameState gameState = game.getGameState();
+            PlayerStats stats = CTF.getInstance().getStatsManager().get(player.getUniqueId());
 
-            boolean shouldOpenAgain;
-
-            switch (gameState) {
-                case LOBBY, STARTING -> shouldOpenAgain = shouldOpenKitSelectionMenu(player);
-                default -> shouldOpenAgain = false;
-            }
-
-            if (shouldOpenAgain)
-                new KitSelectionMenu(player);
+            if (stats.getSelectedKit() == null)
+                Bukkit.getScheduler().runTaskLater(CTF.getInstance(), () -> new KitSelectionMenu(player), 5L);
         }
-    }
-
-    private boolean shouldOpenKitSelectionMenu(Player player) {
-        PlayerStats stats = CTF.getInstance().getStatsManager().get(player.getUniqueId());
-
-        return stats.getSelectedKit() == null;
     }
 }
