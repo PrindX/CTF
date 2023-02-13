@@ -29,19 +29,17 @@ public class GameTask extends BukkitRunnable {
 
             if (teamOne.getFlags() > teamTwo.getFlags()) {
                 if (!teamOne.hasWon()) return;
-                game.endGame();
-
                 gameOverMessage(teamOne, config.getString("messages.team-won"));
                 gameOverMessage(teamTwo, config.getString("messages.team-lost"));
+                game.endGame();
                 cancel();
 
             } else if (teamTwo.getFlags() > teamOne.getFlags()) {
                 if (!teamTwo.hasWon()) return;
 
-                game.endGame();
-
                 gameOverMessage(teamTwo, config.getString("messages.team-won"));
                 gameOverMessage(teamOne, config.getString("messages.team-lost"));
+                game.endGame();
                 cancel();
 
             }
