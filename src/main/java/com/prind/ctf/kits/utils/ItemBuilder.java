@@ -93,4 +93,11 @@ public class ItemBuilder {
 
         return item;
     }
+
+    public static boolean isCustomItem(ItemStack item, ItemEnum customItem) {
+        NBTItem nbtItem = new NBTItem(item);
+        ItemEnum itemEnum = nbtItem.getEnum("item-id", ItemEnum.class);
+
+        return itemEnum != null && itemEnum == customItem;
+    }
 }

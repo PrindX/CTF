@@ -11,7 +11,9 @@ public class KitManager {
 
     static {
         kits.addAll(List.of(
-                new BasicKit()
+                new StrikerKit(),
+                new WizardKit(),
+                new WarperKit()
         ));
     }
 
