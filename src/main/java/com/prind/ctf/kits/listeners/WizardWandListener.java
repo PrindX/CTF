@@ -7,6 +7,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Fireball;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -38,6 +39,11 @@ public class WizardWandListener implements Listener {
         }
 
         // Ability Code
+        Fireball fireball = player.launchProjectile(Fireball.class);
+        fireball.setIsIncendiary(false);
+        fireball.setYield(0f);
+        fireball.setVelocity(fireball.getVelocity().multiply(1.5f));
+        fireball.setDirection(player.getLocation().getDirection());
 
         cooldown.put(player.getUniqueId(), 10); // Seconds
         new BukkitRunnable() {
