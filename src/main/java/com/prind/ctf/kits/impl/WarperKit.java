@@ -41,6 +41,7 @@ public class WarperKit implements Kit {
         inv.setItem(0, ItemBuilder.getCustomItem(
                 Material.DIAMOND_SWORD,
                 ItemEnum.WARPER_SWORD,
+                10,
                 "Warper Sword",
                 "A Good weapon to trick your enemies",
                 "Blink",

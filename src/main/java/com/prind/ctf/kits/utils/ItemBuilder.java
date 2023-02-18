@@ -4,6 +4,7 @@ import com.prind.ctf.kits.enums.ItemEnum;
 import com.prind.ctf.kits.enums.KitEnum;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
@@ -44,7 +45,7 @@ public class ItemBuilder {
         return item;
     }
 
-    public static ItemStack getCustomItem(Material material, ItemEnum itemEnum, String name, String itemDescription, String abilityName, String abilityDescription) {
+    public static ItemStack getCustomItem(Material material, ItemEnum itemEnum, int cooldown , String name, String itemDescription, String abilityName, String abilityDescription) {
         ItemStack item = new ItemStack(material);
         ItemMeta meta = item.getItemMeta();
 
@@ -80,6 +81,9 @@ public class ItemBuilder {
                     Component.text(str).color(TextColor.color(139, 139, 139)
             ));
         }
+
+        loreComps.add(Component.text(""));
+        loreComps.add(Component.text("Cooldown: ").color(TextColor.color(255, 119, 6)).append(Component.text(cooldown + " Seconds").color(NamedTextColor.GREEN)));
 
         meta.lore(loreComps);
 

@@ -5,6 +5,9 @@ import com.prind.ctf.kits.enums.ItemEnum;
 import com.prind.ctf.kits.utils.ItemBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -12,9 +15,12 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.BlockIterator;
+import org.bukkit.util.Vector;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 public class WarperSwordListener implements Listener {
@@ -35,6 +41,15 @@ public class WarperSwordListener implements Listener {
         }
 
         // Ability Code
+        Block block = player.getTargetBlock((Set<Material>)null, 4);
+        Location location = block.getLocation();
+        float pitch = player.getEyeLocation().getPitch();
+        float yaw = player.getEyeLocation().getYaw();
+        location.add(0, 1, 0);
+        location.setPitch(pitch);
+        location.setYaw(yaw);
+        player.teleport(location);
+
 
         cooldown.put(player.getUniqueId(), 10); // Seconds
         new BukkitRunnable() {

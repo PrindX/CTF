@@ -41,6 +41,7 @@ public class StrikerKit implements Kit {
         inv.setItem(0, ItemBuilder.getCustomItem(
                 Material.DIAMOND_SWORD,
                 ItemEnum.SWORD_OF_DEATH,
+                10,
                 "Sword Of Death",
                 "Slay your enemies\nand get a reward\nfor each kill",
                 "Strike The Rage",

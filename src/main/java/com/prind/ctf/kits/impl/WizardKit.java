@@ -41,6 +41,7 @@ public class WizardKit implements Kit {
         inv.setItem(0, ItemBuilder.getCustomItem(
                 Material.STICK,
                 ItemEnum.WIZARD_WAND,
+                10,
                 "Wizard Wand",
                 "Use this wand to zap everyone you like",
                 "Zapper",

@@ -75,6 +75,8 @@ public final class CTF extends JavaPlugin {
                         "Using this remote connection is not recommended");
             }
             remoteDatabase.init();
+
+            this.getLogger().info("Connected to the database in " + (System.currentTimeMillis() - time) + " ms (MySQL)");
         } else {
             remoteDatabase = new SQLite();
             remoteDatabase.init();
