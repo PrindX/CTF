@@ -19,11 +19,6 @@ import java.util.List;
 public class KitUtil {
 
     public static ItemStack getKitIcon(Material material, KitEnum kitEnum, String kitName, String description) {
-        ItemStack item = new ItemStack(material);
-        ItemMeta meta = item.getItemMeta();
-
-        meta.displayName(Component.text(kitName).color(TextColor.color(243, 255, 0)));
-
         ArrayList<Component> loreComps = new ArrayList<>();
         loreComps.add(Component.text(""));
         loreComps.add(
@@ -34,12 +29,13 @@ public class KitUtil {
                                 Component.text(description).color(TextColor.color(255, 161, 68))
                         )
         );
-        meta.lore(loreComps);
 
-        meta.addEnchant(Enchantment.FROST_WALKER, 10, true);
-        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-
-        item.setItemMeta(meta);
+        ItemStack item = new ItemBuilder(material)
+                .name(Component.text(kitName).color(TextColor.color(243, 255, 0)))
+                .lore(loreComps)
+                .enchant(Enchantment.IMPALING, 10)
+                .flag(ItemFlag.HIDE_ENCHANTS)
+                .build();
 
         NBTItem nbtItem = new NBTItem(item);
         nbtItem.setEnum("kit-id", kitEnum);
@@ -51,13 +47,6 @@ public class KitUtil {
     }
 
     public static ItemStack getCustomItem(Material material, ItemEnum itemEnum, int cooldown , String name, String itemDescription, String abilityName, String abilityDescription) {
-        ItemStack item = new ItemStack(material);
-        ItemMeta meta = item.getItemMeta();
-
-        meta.displayName(
-                Component.text(name).color(TextColor.color(255, 119, 6))
-        );
-
         String[] itemDescSplitted = itemDescription.split("\n");
 
         ArrayList<Component> loreComps = new ArrayList<>(List.of(
@@ -90,9 +79,12 @@ public class KitUtil {
         loreComps.add(Component.text(""));
         loreComps.add(Component.text("Cooldown: ").color(TextColor.color(255, 119, 6)).append(Component.text(cooldown + " Seconds").color(NamedTextColor.GREEN)));
 
-        meta.lore(loreComps);
-
-        item.setItemMeta(meta);
+        ItemStack item = new ItemBuilder(material)
+                .name(Component.text(name).color(TextColor.color(255, 119, 6)))
+                .lore(loreComps)
+                .enchant(Enchantment.IMPALING, 10)
+                .flag(ItemFlag.HIDE_ENCHANTS)
+                .build();
 
         NBTItem nbtItem = new NBTItem(item);
         nbtItem.setEnum("item-id", itemEnum);

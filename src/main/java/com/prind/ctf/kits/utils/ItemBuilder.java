@@ -11,41 +11,46 @@ import java.util.List;
 
 public class ItemBuilder {
 
-    private static ItemStack item;
+    private final ItemStack item;
 
     public ItemBuilder(Material material) {
         item = new ItemStack(material);
     }
 
-    public static void name(Component text) {
+    public ItemBuilder name(Component text) {
         ItemMeta meta = item.getItemMeta();
         meta.displayName(text);
         item.setItemMeta(meta);
+        return this;
     }
 
-    public static void lore(List<Component> lore) {
+    public ItemBuilder lore(List<Component> lore) {
         ItemMeta meta = item.getItemMeta();
         meta.lore(lore);
         item.setItemMeta(meta);
+        return this;
     }
 
-    public static void enchant(Enchantment enchantment, int level) {
+    public ItemBuilder enchant(Enchantment enchantment, int level) {
         ItemMeta meta = item.getItemMeta();
         meta.addEnchant(enchantment, level, true);
         item.setItemMeta(meta);
+        return this;
     }
 
-    public static void flag(ItemFlag flag) {
+    public ItemBuilder flag(ItemFlag flag) {
         ItemMeta meta = item.getItemMeta();
         meta.addItemFlags(flag);
         item.setItemMeta(meta);
+        return this;
     }
 
-    public static void amount(int amount) {
+    public ItemBuilder amount(int amount) {
         item.setAmount(amount);
+        return this;
     }
 
-    public static ItemStack build() {
+    public ItemStack build() {
         return item;
     }
 }
