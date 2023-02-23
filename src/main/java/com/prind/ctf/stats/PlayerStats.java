@@ -17,6 +17,7 @@ public class PlayerStats {
   private int deaths;
   private int kills;
   private int wins;
+  private int coins;
 
   private Kit selectedKit = null;
   private Set<Kit> unlockedKits = new HashSet<>();
@@ -40,6 +41,10 @@ public class PlayerStats {
 
   public int getWins() {
     return wins;
+  }
+
+  public int getCoins() {
+    return coins;
   }
 
   public Kit getSelectedKit() {
@@ -70,6 +75,10 @@ public class PlayerStats {
 
   public void setWins(int wins) {
     this.wins = wins;
+  }
+
+  public void setCoins(int coins) {
+    this.coins = coins;
   }
 
   public void setSelectedKit(Kit selectedKit) {

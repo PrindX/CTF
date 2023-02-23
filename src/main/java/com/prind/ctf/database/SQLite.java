@@ -46,7 +46,7 @@ public class SQLite implements Database {
         try {
             checkConnection();
 
-            String sql = "CREATE TABLE IF NOT EXISTS stats (uuid VARCHAR(36) PRIMARY KEY, deaths INT, kills INT, wins INT, unlocked_kits VARCHAR(200))";
+            String sql = "CREATE TABLE IF NOT EXISTS stats (uuid VARCHAR(36) PRIMARY KEY, deaths INT, kills INT, wins INT, coins INT, unlocked_kits VARCHAR(200))";
             try (Statement statement = connection.createStatement()) {
                 statement.executeUpdate(sql);
             }
@@ -82,22 +82,24 @@ public class SQLite implements Database {
             checkConnection();
 
             if(hasStats(stats.getUuid())) {
-                sql = "UPDATE stats SET deaths=?, kills=?, wins=?, unlocked_kits=? WHERE uuid=?;";
+                sql = "UPDATE stats SET deaths=?, kills=?, wins=?, coins=?, unlocked_kits=? WHERE uuid=?;";
                 try (PreparedStatement statement = connection.prepareStatement(sql)) {
                     statement.setInt(1, stats.getDeaths());
                     statement.setInt(2, stats.getKills());
                     statement.setInt(3, stats.getWins());
-                    statement.setString(4, stats.getUuid().toString());
-                    statement.setString(5, stats.getUnlockedKitsString());
+                    statement.setInt(4, stats.getCoins());
+                    statement.setString(5, stats.getUuid().toString());
+                    statement.setString(6, stats.getUnlockedKitsString());
                     statement.executeUpdate();
                 }
             } else {
-                sql = "INSERT INTO stats (uuid, deaths, kills, wins, unlocked_kits) VALUES (?, ?, ?, ?, ?);";
+                sql = "INSERT INTO stats (uuid, deaths, kills, wins, coins, unlocked_kits) VALUES (?, ?, ?, ?, ?, ?);";
                 try (PreparedStatement statement = connection.prepareStatement(sql)) {
                     statement.setString(1, stats.getUuid().toString());
                     statement.setInt(2, stats.getDeaths());
                     statement.setInt(3, stats.getKills());
                     statement.setInt(4, stats.getWins());
+                    statement.setInt(5, stats.getCoins());
                     statement.setString(5, stats.getUnlockedKitsString());
                     statement.executeUpdate();
                 }
@@ -112,7 +114,7 @@ public class SQLite implements Database {
     @Override
     public PlayerStats fetchStats(UUID uuid) {
         PlayerStats stats = new PlayerStats(uuid);
-        String sql = "SELECT `deaths`, `kills`, `wins`, `unlocked_kits` FROM stats WHERE `uuid`=?;";
+        String sql = "SELECT `deaths`, `kills`, `wins`, `coins`, `unlocked_kits` FROM stats WHERE `uuid`=?;";
         try {
             checkConnection();
 
@@ -123,6 +125,7 @@ public class SQLite implements Database {
                         stats.setDeaths(result.getInt("deaths"));
                         stats.setKills(result.getInt("kills"));
                         stats.setWins(result.getInt("wins"));
+                        stats.setCoins(result.getInt("coins"));
                         stats.SetUnlockedKitsString(result.getString("unlocked_kits"));
                     }
                 }
