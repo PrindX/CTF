@@ -6,6 +6,8 @@ import org.bukkit.inventory.ItemStack;
 
 public interface Kit {
 
+    public int getPrice();
+
     public ItemStack getIcon();
 
     public String getName();

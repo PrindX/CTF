@@ -11,6 +11,12 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class ArcherKit implements Kit {
+
+    @Override
+    public int getPrice() {
+        return 0;
+    }
+
     @Override
     public ItemStack getIcon() {
         return ItemBuilder.getKitIcon(
