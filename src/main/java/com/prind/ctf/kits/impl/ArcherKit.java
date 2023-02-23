@@ -3,7 +3,7 @@ package com.prind.ctf.kits.impl;
 import com.prind.ctf.kits.Kit;
 import com.prind.ctf.kits.enums.ItemEnum;
 import com.prind.ctf.kits.enums.KitEnum;
-import com.prind.ctf.kits.utils.ItemBuilder;
+import com.prind.ctf.kits.utils.KitUtil;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -19,7 +19,7 @@ public class ArcherKit implements Kit {
 
     @Override
     public ItemStack getIcon() {
-        return ItemBuilder.getKitIcon(
+        return KitUtil.getKitIcon(
                 Material.BOW,
                 getKitEnum(),
                 getName(),
@@ -44,7 +44,7 @@ public class ArcherKit implements Kit {
 
         inv.setArmorContents(getArmorContents());
 
-        inv.setItem(0, ItemBuilder.getCustomItem(
+        inv.setItem(0, KitUtil.getCustomItem(
                 Material.BOW,
                 ItemEnum.TERMINATOR_BOW,
                 10,

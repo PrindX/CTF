@@ -2,7 +2,7 @@ package com.prind.ctf.kits.listeners;
 
 import com.prind.ctf.CTF;
 import com.prind.ctf.kits.enums.ItemEnum;
-import com.prind.ctf.kits.utils.ItemBuilder;
+import com.prind.ctf.kits.utils.KitUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Location;
@@ -15,8 +15,6 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.util.BlockIterator;
-import org.bukkit.util.Vector;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,7 +30,7 @@ public class WarperSwordListener implements Listener {
         if (event.getItem() == null) return;
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK && event.getAction() != Action.RIGHT_CLICK_AIR) return;
         ItemStack item = event.getItem();
-        if (!(ItemBuilder.isCustomItem(item, ItemEnum.WARPER_SWORD))) return;
+        if (!(KitUtil.isCustomItem(item, ItemEnum.WARPER_SWORD))) return;
 
         Player player = event.getPlayer();
         if (cooldown.containsKey(player.getUniqueId())) {

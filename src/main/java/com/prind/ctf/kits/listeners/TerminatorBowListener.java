@@ -2,7 +2,7 @@ package com.prind.ctf.kits.listeners;
 
 import com.prind.ctf.CTF;
 import com.prind.ctf.kits.enums.ItemEnum;
-import com.prind.ctf.kits.utils.ItemBuilder;
+import com.prind.ctf.kits.utils.KitUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.entity.Player;
@@ -26,7 +26,7 @@ public class TerminatorBowListener implements Listener {
         if (event.getItem() == null) return;
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK && event.getAction() != Action.RIGHT_CLICK_AIR) return;
         ItemStack item = event.getItem();
-        if (!(ItemBuilder.isCustomItem(item, ItemEnum.TERMINATOR_BOW))) return;
+        if (!(KitUtil.isCustomItem(item, ItemEnum.TERMINATOR_BOW))) return;
 
         Player player = event.getPlayer();
         if (cooldown.containsKey(player.getUniqueId())) {

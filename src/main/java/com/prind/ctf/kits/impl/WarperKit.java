@@ -3,7 +3,7 @@ package com.prind.ctf.kits.impl;
 import com.prind.ctf.kits.Kit;
 import com.prind.ctf.kits.enums.ItemEnum;
 import com.prind.ctf.kits.enums.KitEnum;
-import com.prind.ctf.kits.utils.ItemBuilder;
+import com.prind.ctf.kits.utils.KitUtil;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -11,9 +11,15 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class WarperKit implements Kit {
+
+    @Override
+    public int getPrice() {
+        return 0;
+    }
+
     @Override
     public ItemStack getIcon() {
-        return ItemBuilder.getKitIcon(
+        return KitUtil.getKitIcon(
                 Material.IRON_SWORD,
                 KitEnum.WARPER_KIT,
                 getName(),
@@ -38,7 +44,7 @@ public class WarperKit implements Kit {
 
         inv.setArmorContents(getArmorContents());
 
-        inv.setItem(0, ItemBuilder.getCustomItem(
+        inv.setItem(0, KitUtil.getCustomItem(
                 Material.DIAMOND_SWORD,
                 ItemEnum.WARPER_SWORD,
                 10,

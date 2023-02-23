@@ -2,8 +2,7 @@ package com.prind.ctf.kits.listeners;
 
 import com.prind.ctf.CTF;
 import com.prind.ctf.kits.enums.ItemEnum;
-import com.prind.ctf.kits.utils.ItemBuilder;
-import de.tr7zw.changeme.nbtapi.NBTItem;
+import com.prind.ctf.kits.utils.KitUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.World;
@@ -28,7 +27,7 @@ public class SwordOfDeathListener implements Listener {
         if (event.getItem() == null) return;
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK && event.getAction() != Action.RIGHT_CLICK_AIR) return;
         ItemStack item = event.getItem();
-        if (!(ItemBuilder.isCustomItem(item, ItemEnum.SWORD_OF_DEATH))) return;
+        if (!(KitUtil.isCustomItem(item, ItemEnum.SWORD_OF_DEATH))) return;
 
         Player player = event.getPlayer();
         if (cooldown.containsKey(player.getUniqueId())) {
