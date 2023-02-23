@@ -5,7 +5,6 @@ import com.prind.ctf.kits.enums.ItemEnum;
 import com.prind.ctf.kits.utils.ItemBuilder;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
-import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class WizardWandListener implements Listener {
+public class TerminatorBowListener implements Listener {
 
     private Map<UUID, Integer> cooldown = new HashMap<>();
 
@@ -27,7 +26,7 @@ public class WizardWandListener implements Listener {
         if (event.getItem() == null) return;
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK && event.getAction() != Action.RIGHT_CLICK_AIR) return;
         ItemStack item = event.getItem();
-        if (!(ItemBuilder.isCustomItem(item, ItemEnum.WIZARD_WAND))) return;
+        if (!(ItemBuilder.isCustomItem(item, ItemEnum.TERMINATOR_BOW))) return;
 
         Player player = event.getPlayer();
         if (cooldown.containsKey(player.getUniqueId())) {
@@ -36,11 +35,6 @@ public class WizardWandListener implements Listener {
         }
 
         // Ability Code
-        Fireball fireball = player.launchProjectile(Fireball.class);
-        fireball.setIsIncendiary(false);
-        fireball.setYield(0f);
-        fireball.setVelocity(fireball.getVelocity().multiply(1.5f));
-        fireball.setDirection(player.getLocation().getDirection());
 
         cooldown.put(player.getUniqueId(), 10); // Seconds
         new BukkitRunnable() {
