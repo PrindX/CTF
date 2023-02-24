@@ -2,6 +2,7 @@ package com.prind.ctf.kits.utils;
 
 import com.prind.ctf.kits.enums.ItemEnum;
 import com.prind.ctf.kits.enums.KitEnum;
+import com.prind.ctf.util.ItemUtil;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -49,7 +50,7 @@ public class KitUtil {
         return item;
     }
 
-    public static ItemStack getCustomItem(Material material, ItemEnum itemEnum, int cooldown , String name, String itemDescription, String abilityName, String abilityDescription) {
+    public static ItemStack makeCustomWeapon(Material material, ItemEnum itemEnum, int cooldown , String name, String itemDescription, String abilityName, String abilityDescription) {
         String[] itemDescSplitted = itemDescription.split("\n");
 
         ArrayList<Component> loreComps = new ArrayList<>(List.of(
@@ -89,21 +90,8 @@ public class KitUtil {
                 .flag(ItemFlag.HIDE_ENCHANTS)
                 .build();
 
-        NBTItem nbtItem = new NBTItem(item);
-        nbtItem.setEnum("item-id", itemEnum);
-        nbtItem.mergeCustomNBT(item);
-
-        item = nbtItem.getItem();
+        item = ItemUtil.makeCustom(item, itemEnum);
 
         return item;
-    }
-
-    public static boolean isCustomItem(ItemStack item, ItemEnum customItem) {
-        NBTItem nbtItem = new NBTItem(item);
-        ItemEnum itemEnum = nbtItem.getEnum("item-id", ItemEnum.class);
-
-        if (itemEnum == null) return false;
-        if (itemEnum != customItem) return false;
-        return true;
     }
 }

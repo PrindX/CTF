@@ -45,7 +45,7 @@ public class WizardKit implements Kit {
 
         inv.setArmorContents(getArmorContents());
 
-        inv.setItem(0, KitUtil.getCustomItem(
+        inv.setItem(0, KitUtil.makeCustomWeapon(
                 Material.STICK,
                 ItemEnum.WIZARD_WAND,
                 10,

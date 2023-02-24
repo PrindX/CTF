@@ -3,6 +3,7 @@ package com.prind.ctf.kits.listeners;
 import com.prind.ctf.CTF;
 import com.prind.ctf.kits.enums.ItemEnum;
 import com.prind.ctf.kits.utils.KitUtil;
+import com.prind.ctf.util.ItemUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.entity.Fireball;
@@ -27,7 +28,7 @@ public class WizardWandListener implements Listener {
         if (event.getItem() == null) return;
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK && event.getAction() != Action.RIGHT_CLICK_AIR) return;
         ItemStack item = event.getItem();
-        if (!(KitUtil.isCustomItem(item, ItemEnum.WIZARD_WAND))) return;
+        if (!(ItemUtil.isCustom(item, ItemEnum.WIZARD_WAND))) return;
 
         Player player = event.getPlayer();
         if (cooldown.containsKey(player.getUniqueId())) {
