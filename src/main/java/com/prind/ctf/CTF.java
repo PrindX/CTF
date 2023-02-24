@@ -11,7 +11,9 @@ import com.prind.ctf.game.GameManager;
 import com.prind.ctf.kits.listeners.SwordOfDeathListener;
 import com.prind.ctf.kits.listeners.WarperSwordListener;
 import com.prind.ctf.kits.listeners.WizardWandListener;
+import com.prind.ctf.menus.listeners.KitSelectionMenuItemListener;
 import com.prind.ctf.menus.listeners.KitSelectionMenuListener;
+import com.prind.ctf.menus.listeners.KitShopMenuItemListener;
 import com.prind.ctf.menus.listeners.KitShopMenuListener;
 import com.prind.ctf.stats.StatsManager;
 import com.prind.ctf.util.ConfigUtil;
@@ -60,6 +62,8 @@ public final class CTF extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new SwordOfDeathListener(), this);
         Bukkit.getPluginManager().registerEvents(new WizardWandListener(), this);
         Bukkit.getPluginManager().registerEvents(new WarperSwordListener(), this);
+        Bukkit.getPluginManager().registerEvents(new KitShopMenuItemListener(), this);
+        Bukkit.getPluginManager().registerEvents(new KitSelectionMenuItemListener(), this);
     }
 
     private void initDatabase() {

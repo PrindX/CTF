@@ -1,6 +1,7 @@
 package com.prind.ctf.kits;
 
 import com.prind.ctf.kits.enums.KitEnum;
+import com.prind.ctf.kits.impl.ArcherKit;
 import com.prind.ctf.kits.impl.StrikerKit;
 import com.prind.ctf.kits.impl.WarperKit;
 import com.prind.ctf.kits.impl.WizardKit;
@@ -16,7 +17,8 @@ public class KitManager {
         kits.addAll(List.of(
                 new StrikerKit(),
                 new WizardKit(),
-                new WarperKit()
+                new WarperKit(),
+                new ArcherKit()
         ));
     }
 

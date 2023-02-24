@@ -22,7 +22,6 @@ public class PlayerStats {
 
   public PlayerStats(UUID uuid) {
     this.uuid = uuid;
-    this.unlockedKits.add(new StrikerKit());
   }
 
   public UUID getUuid() {
@@ -88,6 +87,7 @@ public class PlayerStats {
   }
 
   public void SetUnlockedKitsString(String str) {
+    if (str == null) return;
     if (str.equals("")) return;
 
     String[] kitEnumsString = str.split(",");

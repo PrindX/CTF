@@ -7,8 +7,7 @@ import com.prind.ctf.kits.enums.KitEnum;
 import com.prind.ctf.stats.PlayerStats;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.minimessage.MiniMessage;
-import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -18,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class KitShopMenu implements InventoryHolder {
 
-    private Inventory inventory = Bukkit.createInventory(this, 3 * 9, "Kit Selection");
+    private Inventory inventory = Bukkit.createInventory(this, 3 * 9, "Kit Shop");
     private Player player;
     private PlayerStats playerStats;
 
@@ -45,9 +44,7 @@ public class KitShopMenu implements InventoryHolder {
         wantedKit = KitManager.getKitByEnum(kitEnum);
 
         if (playerStats.getUnlockedKitsSet().contains(wantedKit)) {
-            MiniMessage mm = MiniMessage.miniMessage();
-            Component text = mm.deserialize("<red>You already have the <yellow><kit></yellow></red>",
-                    Placeholder.parsed("kit", wantedKit.getName()));
+            Component text = Component.text("You already have the " + wantedKit.getName()).color(NamedTextColor.RED);
             player.sendMessage(text);
             return;
         }
@@ -57,16 +54,10 @@ public class KitShopMenu implements InventoryHolder {
 
             this.inventory.close();
 
-            MiniMessage mm = MiniMessage.miniMessage();
-            Component text = mm.deserialize("<green>You bought the <yellow><kit></yellow> for <yellow><amount></yellow> coins</green>",
-                    Placeholder.parsed("amount", String.valueOf(wantedKit.getPrice())),
-                    Placeholder.parsed("kit", wantedKit.getName()));
+            Component text = Component.text("You bought the " + wantedKit.getName() + " for " + wantedKit.getPrice() + " coins").color(NamedTextColor.GREEN);
             player.sendMessage(text);
         } else {
-            MiniMessage mm = MiniMessage.miniMessage();
-            Component text = mm.deserialize("<red>You need <green><amount></green> more coins to buy the <yellow><kit></yellow></red>",
-                    Placeholder.parsed("amount", String.valueOf(wantedKit.getPrice())),
-                    Placeholder.parsed("kit", wantedKit.getName()));
+            Component text = Component.text("You need " + wantedKit.getPrice() + " more coins to by the " + wantedKit.getName()).color(NamedTextColor.RED);
             player.sendMessage(text);
         }
     }

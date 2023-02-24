@@ -135,6 +135,8 @@ public class CommandManager {
     this.annotationParser.parse(new KitCommand());
     this.annotationParser.parse(new KitGetCommand());
     this.annotationParser.parse(new GameLeaveCommand());
+    this.annotationParser.parse(new KitSelectionMenuItemCommand());
+    this.annotationParser.parse(new KitShopMenuItemCommand());
     // Parse all @CommandContainer-annotated classes
     try {
       this.annotationParser.parseContainers();
