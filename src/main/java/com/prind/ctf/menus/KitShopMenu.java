@@ -45,7 +45,11 @@ public class KitShopMenu implements InventoryHolder {
         wantedKit = KitManager.getKitByEnum(kitEnum);
 
         if (playerStats.getUnlockedKitsSet().contains(wantedKit)) {
-            // Already Has This Kit
+            MiniMessage mm = MiniMessage.miniMessage();
+            Component text = mm.deserialize("<red>You already have the <yellow><kit></yellow></red>",
+                    Placeholder.parsed("kit", wantedKit.getName()));
+            player.sendMessage(text);
+            return;
         }
 
         if (playerStats.getCoins() >= wantedKit.getPrice()) {
