@@ -1,8 +1,6 @@
 package com.prind.ctf.game;
 
-import com.onarandombox.MultiverseCore.MultiverseCore;
 import com.onarandombox.MultiverseCore.api.MVWorldManager;
-import com.onarandombox.MultiverseCore.api.MultiverseWorld;
 import com.prind.ctf.CTF;
 import com.prind.ctf.game.enums.GameState;
 import com.prind.ctf.game.tasks.CountdownTask;

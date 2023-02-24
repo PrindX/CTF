@@ -2,7 +2,6 @@ package com.prind.ctf.game.tasks;
 
 import com.prind.ctf.CTF;
 import com.prind.ctf.game.Game;
-import com.prind.ctf.game.enums.GameState;
 import com.prind.ctf.util.ChatUtil;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;

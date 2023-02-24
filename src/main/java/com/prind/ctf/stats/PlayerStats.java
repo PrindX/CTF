@@ -4,8 +4,6 @@ import com.prind.ctf.kits.impl.StrikerKit;
 import com.prind.ctf.kits.Kit;
 import com.prind.ctf.kits.KitManager;
 import com.prind.ctf.kits.enums.KitEnum;
-import org.jetbrains.annotations.Nullable;
-
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;

@@ -1,7 +1,6 @@
 package com.prind.ctf.game;
 
 import com.prind.ctf.CTF;
-import com.prind.ctf.game.Game;
 import com.prind.ctf.game.enums.GameState;
 import com.prind.ctf.game.tasks.CountdownTask;
 import com.prind.ctf.util.ChatUtil;
