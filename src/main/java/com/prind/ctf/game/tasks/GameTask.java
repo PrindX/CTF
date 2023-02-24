@@ -4,6 +4,7 @@ import com.prind.ctf.CTF;
 import com.prind.ctf.game.Game;
 import com.prind.ctf.game.Team;
 import com.prind.ctf.game.enums.GameState;
+import com.prind.ctf.stats.PlayerStats;
 import com.prind.ctf.util.ChatUtil;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -29,6 +30,11 @@ public class GameTask extends BukkitRunnable {
 
             if (teamOne.getFlags() > teamTwo.getFlags()) {
                 if (!teamOne.hasWon()) return;
+                teamOne.getPlayers().forEach(player -> {
+                    PlayerStats stats = CTF.getInstance().getStatsManager().get(player.getUniqueId());
+                    stats.setCoins(stats.getCoins() + config.getInt("coins-per-win"));
+                });
+
                 gameOverMessage(teamOne, config.getString("messages.team-won"));
                 gameOverMessage(teamTwo, config.getString("messages.team-lost"));
                 game.endGame();
@@ -36,6 +42,10 @@ public class GameTask extends BukkitRunnable {
 
             } else if (teamTwo.getFlags() > teamOne.getFlags()) {
                 if (!teamTwo.hasWon()) return;
+                teamTwo.getPlayers().forEach(player -> {
+                    PlayerStats stats = CTF.getInstance().getStatsManager().get(player.getUniqueId());
+                    stats.setCoins(stats.getCoins() + config.getInt("coins-per-win"));
+                });
 
                 gameOverMessage(teamTwo, config.getString("messages.team-won"));
                 gameOverMessage(teamOne, config.getString("messages.team-lost"));

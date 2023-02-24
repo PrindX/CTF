@@ -22,6 +22,7 @@ public class ArcherKit implements Kit {
         return KitUtil.getKitIcon(
                 Material.BOW,
                 getKitEnum(),
+                getPrice(),
                 getName(),
                 "Kill your enemies with distance"
         );

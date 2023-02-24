@@ -21,7 +21,8 @@ public class WizardKit implements Kit {
     public ItemStack getIcon() {
         return KitUtil.getKitIcon(
                 Material.STICK,
-                KitEnum.WIZARD_KIT,
+                getKitEnum(),
+                getPrice(),
                 getName(),
                 "Become the wizard and start zapping everyone"
         );

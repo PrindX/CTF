@@ -21,7 +21,8 @@ public class WarperKit implements Kit {
     public ItemStack getIcon() {
         return KitUtil.getKitIcon(
                 Material.IRON_SWORD,
-                KitEnum.WARPER_KIT,
+                getKitEnum(),
+                getPrice(),
                 getName(),
                 "Get to the other side of the map in a blink"
         );

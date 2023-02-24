@@ -21,6 +21,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
@@ -28,6 +29,7 @@ import org.bukkit.inventory.ItemStack;
 public class GameEvent implements Listener {
 
     private final FileConfiguration gameConfig = CTF.getInstance().getGameConfig().getConfiguration();
+    private final FileConfiguration mainConfig = CTF.getInstance().getConfig();
     private GameManager gameManager = CTF.getInstance().getGameManager();
 
     @EventHandler
@@ -164,12 +166,23 @@ public class GameEvent implements Listener {
         if (!(event.getPlayer() instanceof Player player)) return;
 
         for (Game game : gameManager.getGames()) {
-            if (!game.getPlayers().contains(player)) continue;
+            if (!game.getPlayers().contains(player)) return;
 
             PlayerStats stats = CTF.getInstance().getStatsManager().get(player.getUniqueId());
 
             if (stats.getSelectedKit() == null)
                 Bukkit.getScheduler().runTaskLater(CTF.getInstance(), () -> new KitSelectionMenu(player), 5L);
+        }
+    }
+
+    @EventHandler
+    public void PlayerDeath(PlayerDeathEvent event) {
+        Player player = event.getEntity();
+        for (Game game : gameManager.getGames()) {
+            if (!game.getPlayers().contains(player)) return;
+
+            PlayerStats stats = CTF.getInstance().getStatsManager().get(player.getUniqueId());
+            stats.setCoins(stats.getCoins() + mainConfig.getInt("coins-per-kill"));
         }
     }
 }

@@ -18,7 +18,7 @@ import java.util.List;
 
 public class KitUtil {
 
-    public static ItemStack getKitIcon(Material material, KitEnum kitEnum, String kitName, String description) {
+    public static ItemStack getKitIcon(Material material, KitEnum kitEnum, int price, String kitName, String description) {
         ArrayList<Component> loreComps = new ArrayList<>();
         loreComps.add(Component.text(""));
         loreComps.add(
@@ -28,6 +28,10 @@ public class KitUtil {
                         .append(
                                 Component.text(description).color(TextColor.color(255, 161, 68))
                         )
+        );
+        loreComps.add(Component.text(""));
+        loreComps.add(
+                Component.text("Price: ").color(NamedTextColor.GOLD).append(Component.text(price).color(NamedTextColor.GREEN))
         );
 
         ItemStack item = new ItemBuilder(material)

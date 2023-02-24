@@ -23,6 +23,10 @@ messages:
     - "&a&lGames"
     - "{GAME-DISPLAY} &f&l- &a&lGame: &f{gameName} &l- &a&lSize: &f{size}"
 
+# How much coins you will get per kill
+coins-per-kill: 4
+# How much coins you will get per win
+coins-per-win: 20
 
 database:
   enable: false

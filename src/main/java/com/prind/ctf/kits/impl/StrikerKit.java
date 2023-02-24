@@ -21,7 +21,8 @@ public class StrikerKit implements Kit {
     public ItemStack getIcon() {
         return KitUtil.getKitIcon(
                 Material.DIAMOND_SWORD,
-                KitEnum.STRIKER_KIT,
+                getKitEnum(),
+                getPrice(),
                 getName(),
                 "Start striking your enemies in the arena"
         );
