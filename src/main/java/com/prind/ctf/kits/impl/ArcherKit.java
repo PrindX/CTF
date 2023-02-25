@@ -1,10 +1,12 @@
 package com.prind.ctf.kits.impl;
 
+import com.prind.ctf.CTF;
 import com.prind.ctf.kits.Kit;
 import com.prind.ctf.kits.enums.ItemEnum;
 import com.prind.ctf.kits.enums.KitEnum;
 import com.prind.ctf.kits.utils.KitUtil;
 import org.bukkit.Material;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -12,9 +14,11 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class ArcherKit implements Kit {
 
+    FileConfiguration config = CTF.getInstance().getKitsConfig().getConfiguration();
+
     @Override
     public int getPrice() {
-        return 0;
+        return config.getInt("kits.archer.price");
     }
 
     @Override
@@ -48,7 +52,7 @@ public class ArcherKit implements Kit {
         inv.setItem(0, KitUtil.makeCustomWeapon(
                 Material.BOW,
                 ItemEnum.TERMINATOR_BOW,
-                10,
+                config.getInt("kits.archer.item-cooldown"),
                 "Terminator",
                 "Start killing your enemies with distance",
                 "Rapid Fire",

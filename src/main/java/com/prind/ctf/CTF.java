@@ -25,6 +25,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class CTF extends JavaPlugin {
 
     private ConfigUtil gameConfig;
+    private ConfigUtil kitsConfig;
 
     private GameManager gameManager;
     private MultiverseCore multiverseCore;
@@ -37,6 +38,7 @@ public final class CTF extends JavaPlugin {
         // Plugin startup logic
         this.statsManager = new StatsManager();
         this.gameConfig = new ConfigUtil(this, "game", this.getDataFolder().getAbsolutePath());
+        this.kitsConfig = new ConfigUtil(this, "kits", this.getDataFolder().getAbsolutePath());
         this.multiverseCore = (MultiverseCore) Bukkit.getServer().getPluginManager().getPlugin("Multiverse-Core");
 
         this.gameManager = new GameManager(this);
@@ -95,6 +97,10 @@ public final class CTF extends JavaPlugin {
 
     public StatsManager getStatsManager() {
         return statsManager;
+    }
+
+    public ConfigUtil getKitsConfig() {
+        return kitsConfig;
     }
 
     public static CTF getInstance() {

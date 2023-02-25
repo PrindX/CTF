@@ -1,0 +1,13 @@
+kits:
+  striker:
+    price: 50
+    item-cooldown: 10 # In Seconds
+  archer:
+    price: 70
+    item-cooldown: 10 # In Seconds
+  warper:
+    price: 40
+    item-cooldown: 10 # In Seconds
+  wizard:
+    price: 65
+    item-cooldown: 10 # In Seconds

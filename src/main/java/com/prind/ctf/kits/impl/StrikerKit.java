@@ -1,10 +1,12 @@
 package com.prind.ctf.kits.impl;
 
+import com.prind.ctf.CTF;
 import com.prind.ctf.kits.Kit;
 import com.prind.ctf.kits.enums.ItemEnum;
 import com.prind.ctf.kits.enums.KitEnum;
 import com.prind.ctf.kits.utils.KitUtil;
 import org.bukkit.Material;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -12,9 +14,11 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class StrikerKit implements Kit {
 
+    FileConfiguration config = CTF.getInstance().getKitsConfig().getConfiguration();
+
     @Override
     public int getPrice() {
-        return 0;
+        return config.getInt("kits.striker.price");
     }
 
     @Override
@@ -48,7 +52,7 @@ public class StrikerKit implements Kit {
         inv.setItem(0, KitUtil.makeCustomWeapon(
                 Material.DIAMOND_SWORD,
                 ItemEnum.SWORD_OF_DEATH,
-                10,
+                config.getInt("kits.striker.item-cooldown"),
                 "Sword Of Death",
                 "Slay your enemies\nand get a reward\nfor each kill",
                 "Strike The Rage",
