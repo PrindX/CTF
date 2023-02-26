@@ -56,7 +56,7 @@ public class GameEvent implements Listener {
 
                     teamOne.addFlags(1);
                     testFlagPositions(game);
-                    ChatUtil.message(player, "You captured a flag.");
+                    ChatUtil.message(player, mainConfig.getString("messages.captured-flag"));
                     hand.setAmount(hand.getAmount() - 1);
 
                     break;
@@ -73,7 +73,7 @@ public class GameEvent implements Listener {
 
                     teamTwo.addFlags(1);
                     testFlagPositions(game);
-                    ChatUtil.message(player, "You captured a flag.");
+                    ChatUtil.message(player, mainConfig.getString("messages.captured-flag"));
                     hand.setAmount(hand.getAmount() - 1);
 
                     break;

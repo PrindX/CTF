@@ -30,12 +30,14 @@ public class GameManager {
 
     public void registerGames(Game game) {
         if (games.size() == gameLimit) {
-            ChatUtil.log("&cCannot register: " + game.getDisplayName() + " game limit is reached");
+            ChatUtil.log(config.getString("messages.game-limit-reached")
+                    .replace("{game}", game.getDisplayName()));
             return;
         }
 
         games.add(game);
-        ChatUtil.log("&aGame: " + game.getDisplayName() + " has been registered.");
+        ChatUtil.log(config.getString("messages.game-registered")
+                .replace("{game}", game.getDisplayName()));
     }
 
     public void joinGame(Game game, Player player) {
