@@ -31,6 +31,8 @@ public class KitShopMenu implements InventoryHolder {
 
     private void fillInventory() {
         for (Kit kit : KitManager.getKits()) {
+            if (kit.isFree()) continue;
+
             inventory.addItem(kit.getIcon());
         }
     }

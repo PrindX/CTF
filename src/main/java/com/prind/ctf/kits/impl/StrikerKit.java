@@ -17,6 +17,11 @@ public class StrikerKit implements Kit {
     FileConfiguration config = CTF.getInstance().getKitsConfig().getConfiguration();
 
     @Override
+    public boolean isFree() {
+        return config.getBoolean("kits.striker.is-free");
+    }
+
+    @Override
     public int getPrice() {
         return config.getInt("kits.striker.price");
     }

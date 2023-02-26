@@ -17,6 +17,11 @@ public class ArcherKit implements Kit {
     FileConfiguration config = CTF.getInstance().getKitsConfig().getConfiguration();
 
     @Override
+    public boolean isFree() {
+        return config.getBoolean("kits.archer.is-free");
+    }
+
+    @Override
     public int getPrice() {
         return config.getInt("kits.archer.price");
     }

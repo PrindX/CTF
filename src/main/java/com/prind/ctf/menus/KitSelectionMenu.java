@@ -30,6 +30,10 @@ public class KitSelectionMenu implements InventoryHolder {
     }
 
     private void fillInventory() {
+        for (Kit kit : KitManager.getKits()) {
+            if (kit.isFree())
+                inventory.addItem(kit.getIcon());
+        }
         for (Kit kit : playerStats.getUnlockedKitsSet()) {
             inventory.addItem(kit.getIcon());
         }

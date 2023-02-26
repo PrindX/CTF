@@ -1,13 +1,18 @@
 kits:
   striker:
+    # If it's free it will be added to the kit selection menu without needing to buy it
+    is-free: true
     price: 50
     item-cooldown: 10 # In Seconds
   archer:
+    is-free: false
     price: 70
     item-cooldown: 10 # In Seconds
   warper:
+    is-free: false
     price: 40
     item-cooldown: 10 # In Seconds
   wizard:
+    is-free: true
     price: 65
     item-cooldown: 10 # In Seconds
