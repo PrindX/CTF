@@ -25,7 +25,7 @@ public class KitSelectionMenuItem {
     }
 
     private static Component getName() {
-        Component name = Component.text("Kit Selection").color(NamedTextColor.GOLD).append(Component.text(" (Right Click)").color(NamedTextColor.GRAY));
+        Component name = Component.text("Kit Selector").color(NamedTextColor.GOLD).append(Component.text(" (Right Click)").color(NamedTextColor.GRAY));
 
         return name;
     }
